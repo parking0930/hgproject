@@ -1,0 +1,237 @@
+body,p,h1,h2,h3,h4,h5,h6,ul,ol,li,dl,dt,dd,table,th,td,form,fieldset,
+legend,input,textarea,button,select{margin:0;padding:0}
+img,fieldset{border:0}
+ul,ol{list-style:none}
+em,address{font-style:normal}
+a{text-decoration:none}
+a:hover,a:active,a:focus{text-decoration:none}
+@font-face { font-family: 'gyunggi'; src: url(gyunggi.ttf) format('truetype'); }
+body { font-family: gyunggi; }
+
+#wrap
+{
+    float:left;
+    width:100%;
+    _border: 0.5px solid black;
+}
+/*
+.gnb
+{
+    float: left;
+    width:100%;
+    height:30px;
+    _background-color: black;
+}
+.gnb_center
+{
+    width:150px;
+    margin:5px auto; // top 5px
+}
+.gnb_center ul
+{
+    float:left;
+}
+.gnb_center ul li
+{
+    float:left;
+    margin-right:10px;
+    color: white;
+}
+*/
+#container
+{
+    width:1000px;
+    margin:0 auto;
+}
+#header
+{
+    float:left;
+    width:1000px;
+    height: 70px;
+    _border:1px solid blue;
+}
+#headimg
+{
+    float: left;
+    margin-left: 350px;
+    width: 300px;
+    height: 67px;
+}
+/*#header h1
+{
+    float:left;
+    margin-left:400px;
+    color:black;
+    font-size:40px;
+}*/
+.menu
+{
+    float: left;
+    width:1000px;
+    height:40px;
+    background:black;
+}
+.menu_center
+{
+    float: left;
+    width:1000px;
+}
+.menu_center ul li
+{
+    float: left;
+    font-size: 20px;
+    color: white;
+    padding-top: 6px;
+    padding-bottom: 6px;
+}
+.menu_content
+{
+    padding-left: 46px;
+    padding-right: 46px;
+    _border: 1px solid red;
+}
+.menu_content:hover
+{
+    background-color: #454545;
+}
+.left
+{
+    float:left;
+    width:650px;
+    _border:1px solid blue;
+}
+.left_content
+{
+    float:left;
+    width:650px;
+    height:200px;
+    margin-top:10px;
+    background:#edeef0
+}
+.right
+{
+    float:left;
+    width:330px;
+    margin-left:10px;
+    _border:1px solid red;
+}
+.right_content
+{
+    float:left;
+    width:330px;
+    height:200px;
+    margin-top:10px;
+    background:#f8f8f8;
+    _border-radius:700px;
+}
+#footer
+{
+    float:left;
+    width:1000px;
+    height:80px;
+    margin:10px 0 30px 0;
+    background:#e1e1e1
+}
+#contents
+{
+    float:left;
+    width:650px;
+    height:420px;
+    margin-top:10px;
+    _background:#edeef0
+}
+#login
+{
+    float:left;
+    width:330px;
+    height: 120px;
+    border: 1px solid silver;
+}
+#login_table
+{
+    width: 250px;
+    margin: 5px auto;
+}
+#gamestart
+{
+    float: left;
+    width:330px;
+    height: 75px;
+    margin-top: 5px;
+    border: 0.5px solid black;
+}
+.btn
+{
+    cursor:pointer;
+}
+#notice
+{
+    position: absolute;
+    width:320px;
+    height:200px;
+    border: 1px solid silver;
+    border-radius: 10px;
+}
+#event
+{
+    position: absolute;
+    margin-left: 325px;
+    width:320px;
+    height:200px;
+    border: 1px solid silver;
+    border-radius: 10px;
+}
+#free
+{
+    position: absolute;
+    margin-top:210px;
+    width:320px;
+    height:200px;
+    border: 1px solid silver;
+    border-radius: 10px;
+}
+#bt
+{
+    position: absolute;
+    margin-top:210px;
+    margin-left: 325px;
+    width:320px;
+    height:200px;
+    border: 1px solid silver;
+    border-radius: 10px;
+}
+.board_title
+{
+    position: absolute;
+    font-weight: bold;
+    font-size: 22px;
+    margin-left: 15px;
+    margin-top: 5px;
+}
+.board_table
+{
+    text-align: left;
+    position: absolute;
+    margin-top:20px;
+    margin-left: 15px;
+    margin-right: 15px;
+    border-collapse: collapse;
+}
+.board_table tr
+{
+    border-bottom: 2px dotted silver;
+}
+.board_table tr:hover
+{
+    background-color: #e1e1e1;
+}
+.id_text
+{
+    margin-right: 10px;
+    font-size: 17px;
+}
+.titlefont
+{
+    font-size: 17px;
+    color: black;
+}

@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="kr">
+<head>
+    <meta charset="UTF-8">
+    <title>HG Project Main</title>
+    <link rel="stylesheet" type="text/css" href="mainDesign.css">
+</head>
+<body>
+        <div id="wrap">
+                <div id="container">
+                    <div id="header">
+                        <a href="/"><img id="headimg" src="logo.png"></a>
+                    </div>
+                    <div class="menu">
+                        <div class="menu_center">
+                            <ul>
+                                <a href="/">
+                                <li class="menu_content">메인</li>
+                                </a>
+                                <li>|</li>
+                                <a href="/board_notice">
+                                <li class="menu_content">공지사항</li>
+                                </a>
+                                <li>|</li>
+                                <a href="/board_free">
+                                <li class="menu_content">유저게시판</li>
+                                </a>
+                                <li>|</li>
+                                <a href="/ranking">
+                                <li class="menu_content">랭킹</li>
+                                </a>
+                                <li>|</li>
+                                <li class="menu_content">포인트샵</li>
+                                <li>|</li>
+                                <li class="menu_content">이용방법</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="left">
+                        <div class="left_content">
+                            <img style="position:absolute;" src="1.png">
+                        </div>
+                        <div id="contents">
+                            <div id="notice">
+                                <text class="board_title">공지사항</text><br>
+                                <table id="board_notice_table" class="board_table">
+                                    
+                                </table>
+                            </div>
+                            <div id="event">
+                                <text class="board_title" class="board_table">이벤트</text><br>
+                                <table id="board_event_table" class="board_table">
+                                    
+                                </table>
+                            </div>
+                            <div id="free">
+                                <text class="board_title">자유게시판</text><br>
+                                <table id="board_free_table" class="board_table">
+                                    
+                                </table>
+                            </div>
+                            <div id="bt">
+                                <text class="board_title">공략게시판</text><br>
+                                <table id="board_bt_table" class="board_table">
+                                    
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="right">
+                        <div class="right_content">
+                            <div id="login">
+                            <div id="login_table">
+                                <% if(session.user){ %>
+                                    <form action="/logout">
+                                        <table>
+                                            <tr>
+                                                <td style="text-align: center">
+                                                    <font style="font-weight: bold;"><%= session.user %>님</font>
+                                                </td>
+                                                <td style="text-align: right">
+                                                    <input type="submit" value="로그아웃">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td rowspan="4">
+                                                    <img src="profile.png" style="width:80px;height: 80px;">
+                                                </td>
+                                                <td>
+                                                    <a href="#">마이페이지</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <font>포인트: <%= point %>P</font>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <font>전적: <%= win %>승 <%= draw %>무 <%= lose %>패</font>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </form>
+                                    <% }else{ %>
+                                    <form action="/login" method="POST">
+                                        <table>
+                                            <tr>
+                                                <td>
+                                                    <input type="text" name="u_id" id="u_id" placeholder="아이디">
+                                                </td>
+                                                <td rowspan="2">
+                                                    <input type="submit" name="log_in" id="log_in" value="로그인" style="height:55px">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <input type="password" name="u_pw" id="u_pw" placeholder="비밀번호">
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </form>
+                                    <a href="#" onclick="new_pop();">회원가입</a><br>
+                                    <a href="#">아이디/비밀번호 찾기</a>
+                                    <% } %>
+                            </div>
+                            </div>
+                            <div id="gamestart">
+                                <% if(session.user){ %>
+                                <a href="/room"><img src="gamestart.png"></a>
+                                <% }else{ %>
+                                    <a class="btn"><img src="gamestart.png" onclick="alert('로그인이 필요합니다.');"></a>
+                                <% } %>
+                            </div>
+                        </div>
+                        <div class="right_content">
+                        </div>
+                        <div class="right_content">
+                        </div>
+                    </div>
+                    <div id="footer">
+                    </div>
+                </div>
+            </div>
+</body>
+<script src="//code.jquery.com/jquery-1.11.1.js"></script>
+<script>
+    function new_pop()
+    {
+        var popup = window.open("/join",'_blank','toolbar=no,location=no,status=no,menubar=no,scrollbars=auto,resizable=no,directories=no,width=340,height=370,top=200,left=800');
+        if(popup == null || popup.screenLeft == 0)
+        {
+            alert('팝업 차단 해제 후 다시 시도해주세요.');
+        }
+    }
+    <% for(var i in notice){
+        var id = notice[i]['id'];
+        var title = notice[i]['title'];
+        if(title.length>14)
+        {
+            var tmp="";
+            for(var i=0;i<14;i++)
+            {
+                tmp = tmp+title[i];
+            }
+            title = tmp+"..";
+        }
+    %>
+    $('#board_notice_table').append(`<tr><td style="text-align:center;"><text class="id_text">`+"<%=id%>"+`</text></td><td><a href="/show/`+"board_notice"+"/"+"<%=id%>"+`" class="titlefont">`+"<%=title%>"+`</a></td></tr>`);
+    <% } %>
+    <% for(var i in free){
+        var id = free[i]['id'];
+        var title = free[i]['title'];
+        if(title.length>14)
+        {
+            var tmp="";
+            for(var i=0;i<14;i++)
+            {
+                tmp = tmp+title[i];
+            }
+            title = tmp+"..";
+        }
+    %>
+    $('#board_free_table').append(`<tr><td style="text-align:center;"><text class="id_text">`+"<%=id%>"+`</text></td><td><a href="/show/`+"board_free"+"/"+"<%=id%>"+`" class="titlefont">`+"<%=title%>"+`</a></td></tr>`);
+    <% } %>
+    <% for(var i in bt){
+        var id = bt[i]['id'];
+        var title = bt[i]['title'];
+        if(title.length>14)
+        {
+            var tmp="";
+            for(var i=0;i<14;i++)
+            {
+                tmp = tmp+title[i];
+            }
+            title = tmp+"..";
+        }
+    %>
+    $('#board_bt_table').append(`<tr><td style="text-align:center;"><text class="id_text">`+"<%=id%>"+`</text></td><td><a href="/show/`+"board_bt"+"/"+"<%=id%>"+`" class="titlefont">`+"<%=title%>"+`</a></td></tr>`);
+    <% } %>
+</script>
+</html>
