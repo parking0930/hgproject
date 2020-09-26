@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="kr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>HG Project - Board</title>
+    <link rel="stylesheet" type="text/css" href="/boardDesign.css">
+    <link rel="stylesheet" type="text/css" href="/btCSS.css">
+</head>
+
+<body>
+    <div id="wrap">
+        <div id="container">
+            <div id="header">
+                <a href="/">
+                    <img id="headimg" src="/logo.png">
+                </a>
+            </div>
+            <div class="menu">
+                <div class="menu_center">
+                    <ul>
+                        <a href="/">
+                            <li class="menu_content">메인</li>
+                        </a>
+                        <li>|</li>
+                        <a href="/board_notice">
+                        <li class="menu_content">공지사항</li>
+                        </a>
+                        <li>|</li>
+                        <a href="/board_free">
+                        <li class="menu_content">유저게시판</li>
+                        </a>
+                        <li>|</li>
+                        <a href="/ranking">
+                            <li class="menu_content">랭킹</li>
+                        </a>
+                        <li>|</li>
+                        <li class="menu_content">포인트샵</li>
+                        <li>|</li>
+                        <li class="menu_content">이용방법</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="left">
+                <div class="left_content">
+                    <div id="logo">
+                        <text style="font-weight:bold;font-size:30px;color:white;">유저게시판</text>
+                    </div>
+                    <a href="/board_free">
+                    <div class="board_list">
+                        <text class="board_list_text">▶ 자유게시판</text>
+                    </div>
+                    </a>
+                    <a href="/board_bt">
+                    <div class="board_list">
+                        <text class="board_list_text">▶ 공략게시판</text>
+                    </div>
+                    </a>
+                </div>
+            </div>
+            <div class="right">
+                <div class="right_content">
+                    <h1 style="margin-left:20px;margin-top:8px;">공략게시판</h1>
+                    <table id="board_bt_top">
+                        <tr>
+                            <th style="width:60px;">번호</th>
+                            <th style="width:300px;">제목</th>
+                            <th style="width:130px">작성자</th>
+                            <th style="width:130px">작성일</th>
+                            <th style="width:100px">조회수</th>
+                        </tr>
+                    </table>
+                    <table id="board_bt">
+                        <tbody id="bt_tbody">
+                        </tbody>
+                    </table>
+                    <%if(session.user){ %>
+                    <div id="btns">
+                        <input type="button" value="글쓰기" onclick="Gowrite();" style="width:80px; height: 27px;margin-right: 10px;">
+                    </div>
+                    <% } %>
+                </div>
+            </div>
+            <div id="footer" style="text-align:center;font-family: 'Nanum Gothic';">
+                <p style="font-size:13px;margin-top:9px;font-weight:bold;">HalliGalli in Website Project</p>
+                <p style="font-size:12px;margin-top:2px;">ⓒ2020.박재현 All Rights Reserved.</p>
+                <p style="font-size:12px;margin-top:2px;">Tel : 010-0000-0000, Mail : parking0930@naver.com</p>
+                <p style="font-size:12px;margin-top:2px;">GitHub : <a href="https://github.com/parking0930">https://github.com/parking0930</a></p>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="//code.jquery.com/jquery-1.11.1.js"></script>
+<script>
+    function Gowrite()
+    {
+        location.href = "/write/"+"<%=id%>";
+    }
+    function new_pop() {
+        var popup = window.open("/join", '_blank',
+            'toolbar=no,location=no,status=no,menubar=no,scrollbars=auto,resizable=no,directories=no,width=340,height=370,top=200,left=800'
+        );
+        if (popup == null || popup.screenLeft == 0) {
+            alert('팝업 차단 해제 후 다시 시도해주세요.');
+        }
+    }
+    function Boardload()
+    {
+        <% for(var i in board){
+            var bid = board[i]['id'];
+            var title = board[i]['title'];
+            var name = board[i]['name'];
+            var time = board[i]['time'];
+            var check = board[i]['ck'];
+            var today = new Date();
+            today = today.getFullYear()+"/"+(today.getMonth()+1)+"/"+today.getDate();
+            var ymd = new Date(time);
+            ymd = ymd.getFullYear()+"/"+(ymd.getMonth()+1)+"/"+ymd.getDate();
+            time = time.toString().split(' ');
+            time = time[4].split(':');
+            var isnew = 0;
+            if(today==ymd)
+            {
+                time = time[0]+":"+time[1];
+                isnew = 1;
+            }
+            else
+            {
+                time = ymd;
+            }
+            if(title.length>19)
+            {
+                var tmp="";
+                for(var i=0;i<19;i++)
+                {
+                    tmp = tmp+title[i];
+                }
+                title = tmp+"..";
+            }
+        %>
+        if(<%=isnew%> == 1)
+        {
+            $('#board_bt > tbody').append(`<tr><td style="width:60px;">`+"<%=bid%>"+`</td><td style="width:300px;"><a href="/show/`+"<%=id%>"+"/"+"<%=bid%>"+`" class="titlefont">`+"<%=title%>"+`</a><img class="newsize" src="/new.png"></td><td style="width:130px;">`+"<%=name%>"+`</td><td style="width:130px;">`+"<%=time%>"+`</td><td style="width:100px;">`+"<%=check%>"+`</td></tr>`);
+        }
+        else
+        {
+            $('#board_bt > tbody').append(`<tr><td style="width:60px;">`+"<%=bid%>"+`</td><td style="width:300px;"><a href="/show/`+"<%=id%>"+"/"+"<%=bid%>"+`" class="titlefont">`+"<%=title%>"+`</a></td><td style="width:130px;">`+"<%=name%>"+`</td><td style="width:130px;">`+"<%=time%>"+`</td><td style="width:100px;">`+"<%=check%>"+`</td></tr>`);
+        }
+        <% } %>
+    }
+    Boardload();
+</script>
+
+</html>

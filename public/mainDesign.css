@@ -126,11 +126,12 @@ body { font-family: gyunggi; }
 }
 #footer
 {
-    float:left;
-    width:1000px;
-    height:80px;
-    margin:10px 0 30px 0;
-    background:#e1e1e1
+  float:left;
+  width:1000px;
+  height:80px;
+  margin:10px 0 30px 0;
+  background:#E9E9E9;
+  border:0.5px solid silver;
 }
 #contents
 {
@@ -170,7 +171,6 @@ body { font-family: gyunggi; }
     width:320px;
     height:200px;
     border: 1px solid silver;
-    border-radius: 10px;
 }
 #event
 {
@@ -179,7 +179,6 @@ body { font-family: gyunggi; }
     width:320px;
     height:200px;
     border: 1px solid silver;
-    border-radius: 10px;
 }
 #free
 {
@@ -188,7 +187,6 @@ body { font-family: gyunggi; }
     width:320px;
     height:200px;
     border: 1px solid silver;
-    border-radius: 10px;
 }
 #bt
 {
@@ -198,7 +196,6 @@ body { font-family: gyunggi; }
     width:320px;
     height:200px;
     border: 1px solid silver;
-    border-radius: 10px;
 }
 .board_title
 {
@@ -216,10 +213,6 @@ body { font-family: gyunggi; }
     margin-left: 15px;
     margin-right: 15px;
     border-collapse: collapse;
-}
-.board_table tr
-{
-    border-bottom: 2px dotted silver;
 }
 .board_table tr:hover
 {

@@ -1,0 +1,68 @@
+@font-face { font-family: 'NanumGothic'; src: url(gyunggi.ttf) format('truetype'); }
+body { font-family: NanumGothic; }
+
+#board_bt_top
+{
+    border-collapse: collapse;
+    margin-left: 20px;
+    margin-right: 20px;
+    overflow: hidden;
+    border-radius: 8px;
+}
+#board_bt_top tr th
+{
+    background-color: black;
+    color: white;
+    font-size: 14px;
+    padding-top:5px;
+    padding-bottom: 5px;
+}
+#board_bt
+{
+    border-collapse: collapse;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+#board_bt tr td
+{
+    text-align: center;
+    padding-top:5px;
+    font-size: 14px;
+    padding-bottom: 5px;
+}
+#board_bt tbody
+{
+    display: block;
+    height: 430px;
+}
+#board_bt tr
+{
+    border-bottom: 1px solid silver;
+}
+#board_bt tr:hover
+{
+    background-color: #e1e1e1;
+}
+#btns
+{
+    margin-top: 10px;
+    width: 760px;
+    height: 27px;
+    text-align: right;
+}
+.titlefont
+{
+    color: black;
+}
+.titlefont:hover
+{
+    border-bottom: 1px solid black;
+}
+.newsize
+{
+    position: absolute;
+    margin-left: 5px;
+    margin-top: 3px;
+    width:14px;
+    height: 14px;
+}

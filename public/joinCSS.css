@@ -1,0 +1,230 @@
+body,p,h1,h2,h3,h4,h5,h6,ul,ol,li,dl,dt,dd,table,th,td,form,fieldset,
+legend,input,textarea,button,select{margin:0;padding:0}
+img,fieldset{border:0}
+ul,ol{list-style:none}
+em,address{font-style:normal}
+a:link { color: black; text-decoration: none;}
+a:visited { color: black; text-decoration: none;}
+
+@font-face { font-family: 'gyunggi'; src: url(gyunggi.ttf) format('truetype'); }
+@font-face {
+  font-family: 'Nanum Gothic';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../fonts/NanumGothic/NanumGothic-Regular.eot');
+  src: url('../fonts/NanumGothic/NanumGothic-Regular.eot?#iefix') format('embedded-opentype'),
+       url('../fonts/NanumGothic/NanumGothic-Regular.woff2') format('woff2'),
+       url('../fonts/NanumGothic/NanumGothic-Regular.woff') format('woff'),
+       url('../fonts/NanumGothic/NanumGothic-Regular.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Nanum Gothic';
+  font-style: normal;
+  font-weight: 700;
+  src: url('../fonts/NanumGothic/NanumGothic-Bold.eot');
+  src: url('../fonts/NanumGothic/NanumGothic-Bold.eot?#iefix') format('embedded-opentype'),
+       url('../fonts/NanumGothic/NanumGothic-Bold.woff2') format('woff2'),
+       url('../fonts/NanumGothic/NanumGothic-Bold.woff') format('woff'),
+       url('../fonts/NanumGothic/NanumGothic-Bold.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Nanum Gothic';
+  font-style: normal;
+  font-weight: 800;
+  src: url('../fonts/NanumGothic/NanumGothic-ExtraBold.eot');
+  src: url('../fonts/NanumGothic/NanumGothic-ExtraBold.eot?#iefix') format('embedded-opentype'),
+       url('../fonts/NanumGothic/NanumGothic-ExtraBold.woff2') format('woff2'),
+       url('../fonts/NanumGothic/NanumGothic-ExtraBold.woff') format('woff'),
+       url('../fonts/NanumGothic/NanumGothic-ExtraBold.ttf') format('truetype');
+}
+body { font-family: gyunggi; }
+
+#wrap
+{
+    float:left;
+    width:100%;
+    _border: 0.5px solid black;
+}
+#container
+{
+    width:1000px;
+    margin:0 auto;
+}
+#header
+{
+    float:left;
+    width:1000px;
+    height: 70px;
+    _border:1px solid blue;
+}
+#headimg
+{
+    float: left;
+    margin-left: 350px;
+    width: 300px;
+    height: 67px;
+}
+.menu
+{
+    float: left;
+    width:1000px;
+    height:40px;
+    background:black;
+}
+.menu_center
+{
+    float: left;
+    width:1000px;
+}
+.menu_center ul li
+{
+    float: left;
+    font-size: 20px;
+    color: white;
+    padding-top: 6px;
+    padding-bottom: 6px;
+}
+.menu_content
+{
+    padding-left: 46px;
+    padding-right: 46px;
+    _border: 1px solid red;
+}
+.menu_content:hover
+{
+    background-color: #454545;
+}
+.center
+{
+    float:left;
+    width:1000px;
+    _border:1px solid blue;
+}
+.center_content
+{
+    float:left;
+    margin-left:200px;
+    margin-right:200px;
+    width:600px;
+    height:510px;
+    margin-top:10px;
+    _border: 1px solid silver;
+}
+.join_contents
+{
+  margin-top: 5px;
+  width:600px;
+  height:200px;
+  border: 1px solid silver;
+}
+.top_join_contents
+{
+    width:600px;
+    height:30px;
+    background: #f7f7f7;
+    border-bottom: 1px solid silver;
+}
+.top_font
+{
+  position: absolute;
+  margin-top: 6px;
+  margin-left: 3px;
+  font-family: 'Nanum Gothic';
+  font-weight: bold;
+  font-size: 14px;
+}
+.fonts
+{
+  font-family: 'Nanum Gothic';
+  font-size: 13px;
+  margin-left: 3px;
+}
+.button_contents
+{
+    width:600px;
+    height:30px;
+    margin-top: 10px;
+    _border: 1px solid silver;
+    text-align: center;
+}
+.agree_contents
+{
+  width:600px;
+  height:20px;
+  margin-top: 5px;
+  _border: 1px solid silver;
+}
+#footer
+{
+  float:left;
+  width:1000px;
+  height:80px;
+  margin:10px 0 30px 0;
+  background:#E9E9E9;
+  border:0.5px solid silver;
+}
+#gamestart
+{
+    float: left;
+    width:330px;
+    height: 75px;
+    margin-top: 5px;
+    border: 0.5px solid black;
+}
+.btn
+{
+    cursor:pointer;
+}
+#ranktb1
+{
+    border-collapse: collapse;
+    margin-left: 25px;
+    margin-right: 25px;
+}
+#ranktb1 tr th
+{
+    background-color: black;
+    font-weight: bold;
+    color: white;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    width:140px;
+}
+#ranktb2
+{
+    border-collapse: collapse;
+    margin-left: 25px;
+    margin-right: 25px;
+}
+#ranktb2 tbody
+{
+    display: block;
+    overflow: auto;
+    width:698px;
+    height:400px;
+}
+#ranktb2 tr
+{
+    border-bottom: 1px solid silver;
+}
+#ranktb2 tr td
+{
+    padding-top: 6px;
+    padding-bottom: 6px;
+    width:140px;
+}
+#ranktb2 tr:hover
+{
+    background-color: #e1e1e1;
+}
+#searchdiv
+{
+    width:750px;
+    padding-bottom: 5px;
+    text-align: right;
+}
+.imgsize
+{
+    width:40px;
+    height: 40px;
+}

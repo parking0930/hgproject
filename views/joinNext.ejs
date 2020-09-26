@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="kr">
+
+<head>
+    <meta charset="UTF-8">
+    <script src='http://code.jquery.com/jquery-latest.js'></script>
+    <title>HG Project - 회원가입</title>
+    <link rel="stylesheet" type="text/css" href="/joinNextCSS.css">
+</head>
+
+<body>
+    <div id="wrap">
+        <div id="container">
+            <div id="header">
+                <a href="/">
+                    <img id="headimg" src="/logo.png">
+                </a>
+            </div>
+            <div class="menu">
+                <div class="menu_center">
+                    <ul>
+                        <a href="/">
+                            <li class="menu_content">메인</li>
+                        </a>
+                        <li>|</li>
+                        <a href="/board_notice">
+                        <li class="menu_content">공지사항</li>
+                        </a>
+                        <li>|</li>
+                        <a href="/board_free">
+                        <li class="menu_content">유저게시판</li>
+                        </a>
+                        <li>|</li>
+                        <a href="/ranking">
+                        <li class="menu_content">랭킹</li>
+                        </a>
+                        <li>|</li>
+                        <li class="menu_content">포인트샵</li>
+                        <li>|</li>
+                        <li class="menu_content">이용방법</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="center">
+                <div class="center_content">
+                  <div id="main_text">
+                    <text class="fonts" style="position: absolute;margin-left:10px;margin-top:7px;font-size:17px;">회원가입</text>
+                  </div>
+                  <form action="/joinComplete" method="post" id="targetform">
+                  <div class="containers">
+                    <text class="fonts" style="margin-left:150px;">아이디 : </text>
+                    <input type="text" style="width:200px;height:20px;" id="user_id" name="u_id">
+                    <button type="button" onclick="id_check();" style="position: absolute;width:100px;height:25px; margin-left:5px;">중복확인</button>
+                  </div>
+                  <div class="containers">
+                    <text class="fonts" style="margin-left:137px;">비밀번호 : </text>
+                    <input type="password" id="user_pw" name="u_pw" style="width:200px;height:20px;">
+                  </div>
+                  <div class="containers">
+                    <text class="fonts" style="margin-left:108px;">비밀번호 확인 : </text>
+                    <input type="password" id="user_pwcheck" style="width:200px;height:20px;">
+                  </div>
+                  <div class="pwd_chk_con">
+                    <text id="pwcheck_check"> </text>
+                  </div>
+                  <div class="containers">
+                    <text class="fonts" style="margin-left:150px;">닉네임 : </text>
+                    <input type="text" style="width:200px;height:20px;" id="user_nick" name="u_nick">
+                    <button type="button" onclick="nick_check();" style="position: absolute;width:100px;height:25px; margin-left:5px;">중복확인</button>
+                  </div>
+                  <div class="containers">
+                    <button type="button" onclick="checkReg();" style="position: absolute;width:100px;height:25px; margin-left:200px;">확인</button>
+                    <button type="button" onclick="location.replace('/');" style="position: absolute;width:100px;height:25px; margin-left:310px;">취소</button>
+                  </div>
+                </form>
+                </div>
+            </div>
+            <div id="footer" style="text-align:center;font-family: 'Nanum Gothic';">
+                <p style="font-size:13px;margin-top:9px;font-weight:bold;">HalliGalli in Website Project</p>
+                <p style="font-size:12px;margin-top:2px;">ⓒ2020.박재현 All Rights Reserved.</p>
+                <p style="font-size:12px;margin-top:2px;">Tel : 010-0000-0000, Mail : parking0930@naver.com</p>
+                <p style="font-size:12px;margin-top:2px;">GitHub : <a href="https://github.com/parking0930">https://github.com/parking0930</a></p>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="//code.jquery.com/jquery-1.11.1.js"></script>
+<script>
+  var nickStatus = 0;
+  var idStatus = 0;
+  var pwStatus = 0;
+
+  $('#user_pw').keyup(function(){
+      if($('#user_pw').val()==$('#user_pwcheck').val()){
+          $('#pwcheck_check').html("올바르게 입력하였습니다.");
+          pwStatus = 1;
+      }
+      else
+      {
+          if($('#user_pwcheck').val()!="")
+          {
+              $('#pwcheck_check').html("잘못 입력하였습니다.");
+              pwStatus = 0;
+          }
+      }
+  });
+  $('#user_pwcheck').keyup(function(){
+      if($('#user_pw').val()==$('#user_pwcheck').val()){
+          $('#pwcheck_check').html("올바르게 입력하였습니다.");
+      }
+      else
+      {
+          $('#pwcheck_check').html("잘못 입력하였습니다.");
+      }
+  });
+  function nick_check()
+  {
+    if($('#user_nick').val()=="")
+    {
+      alert("닉네임을 입력해주세요.");
+      return;
+    }
+    $.get('/checkNick/'+$('#user_nick').val(), function(data) {
+      if($('#user_nick').val()==data)
+      {
+        alert("닉네임이 이미 존재합니다.");
+      }
+      else{
+        alert("사용 가능합니다.");
+      }
+    });
+  }
+  function id_check()
+  {
+    if($('#user_id').val()=="")
+    {
+      alert("아이디를 입력해주세요.");
+      return;
+    }
+    $.get('/checkId/'+$('#user_id').val(), function(data) {
+      if($('#user_id').val()==data)
+      {
+        alert("아이디가 이미 존재합니다.");
+      }
+      else{
+        alert("사용 가능한 아이디입니다.");
+      }
+    });
+  }
+  function checkReg()
+  {
+      if($('#user_nick').val()=="" || $('#user_id').val()=="")
+      {
+        alert("정보를 정확히 입력해주세요.");
+        return;
+      }
+      $.get('/checkNick/'+$('#user_nick').val(), function(data) {
+        if($('#user_nick').val()==data)
+        {
+          alert("닉네임을 정확히 입력해주세요.");
+          return;
+        }
+      });
+      $.get('/checkId/'+$('#user_id').val(), function(data) {
+        if($('#user_id').val()==data)
+        {
+          alert("아이디를 정확히 입력해주세요.");
+          return;
+        }
+      });
+      if($('#user_pw').val()==$('#user_pwcheck').val() && $('#user_pw').val() !="" && $('#user_pwcheck').val() != ""){
+
+      }
+      else
+      {
+        alert("비밀번호를 정확히 입력해주세요.");
+        return;
+      }
+      alert("가입완료!");
+      $('#targetform').submit();
+  }
+</script>
+
+</html>

@@ -1,0 +1,103 @@
+body,p,h1,h2,h3,h4,h5,h6,ul,ol,li,dl,dt,dd,table,th,td,form,fieldset,
+legend,input,textarea,button,select{margin:0;padding:0}
+img,fieldset{border:0}
+ul,ol{list-style:none}
+em,address{font-style:normal}
+a{text-decoration:none}
+a:hover,a:active,a:focus{text-decoration:none}
+@font-face { font-family: 'gyunggi'; src: url(gyunggi.ttf) format('truetype'); }
+body { font-family: gyunggi; }
+
+#wrap
+{
+    float:left;
+    width:100%;
+    _border: 0.5px solid black;
+}
+#container
+{
+    width:1000px;
+    margin:0 auto;
+}
+#header
+{
+    float:left;
+    width:1000px;
+    height: 70px;
+    _border:1px solid blue;
+}
+#headimg
+{
+    float: left;
+    margin-left: 350px;
+    width: 300px;
+    height: 67px;
+}
+.menu
+{
+    float: left;
+    width:1000px;
+    height:40px;
+    background:black;
+}
+.menu_center
+{
+    float: left;
+    width:1000px;
+}
+.menu_center ul li
+{
+    float: left;
+    font-size: 20px;
+    color: white;
+    padding-top: 6px;
+    padding-bottom: 6px;
+}
+.menu_content
+{
+    padding-left: 46px;
+    padding-right: 46px;
+    _border: 1px solid red;
+}
+.menu_content:hover
+{
+    background-color: #454545;
+}
+.center
+{
+    float:left;
+    width:250px;
+    _border:1px solid blue;
+}
+.center_content
+{
+    float:left;
+    width:750px;
+    margin-left: 125px;
+    margin-left: 125px;
+    height:500px;
+    margin-top:10px;
+    border: 1px solid silver;
+    border-radius: 10px;
+    text-align: center;
+}
+#footer
+{
+    float:left;
+    width:1000px;
+    height:80px;
+    margin:10px 0 30px 0;
+    background:#e1e1e1
+}
+#gamestart
+{
+    float: left;
+    width:330px;
+    height: 75px;
+    margin-top: 5px;
+    border: 0.5px solid black;
+}
+.btn
+{
+    cursor:pointer;
+}

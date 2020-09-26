@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="kr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>HG Project - Write</title>
+    <link rel="stylesheet" type="text/css" href="/writeCSS.css">
+</head>
+
+<body>
+    <div id="wrap">
+        <div id="container">
+            <div id="header">
+                <a href="/">
+                    <img id="headimg" src="/logo.png">
+                </a>
+            </div>
+            <div class="menu">
+                <div class="menu_center">
+                    <ul>
+                        <a href="/">
+                        <li class="menu_content">메인</li>
+                        </a>
+                        <li>|</li>
+                        <a href="/board_notice">
+                        <li class="menu_content">공지사항</li>
+                        </a>
+                        <li>|</li>
+                        <a href="/board_free">
+                        <li class="menu_content">유저게시판</li>
+                        </a>
+                        <li>|</li>
+                        <a href="/ranking">
+                        <li class="menu_content">랭킹</li>
+                        </a>
+                        <li>|</li>
+                        <li class="menu_content">포인트샵</li>
+                        <li>|</li>
+                        <li class="menu_content">이용방법</li>
+                    </ul>
+                </div>
+            </div>
+            <%if(session.user){ %>
+            <div class="center">
+                <div class="center_content">
+                    <br>
+                    <input id="title" type="text" style="width:600px;height: 20px;margin:4px;" placeholder="제목을 입력하세요." maxlength="25"><br>
+                    <textarea id="contents" style="width:600px;height: 400px;resize: none;" placeholder="내용을 입력하세요."></textarea><br>
+                    <input type="button" value="글쓰기" onclick="Sending();" style="width:80px;height:30px;">
+                    <input type="button" value="취소하기" onclick="toback();" style="width:80px;height:30px;">
+                </div>
+            </div>
+            <% }else{ %>
+            <h1>로그인이 필요합니다.</h1>
+            <% } %>
+            <div id="footer" style="text-align:center;font-family: 'Nanum Gothic';">
+                <p style="font-size:13px;margin-top:9px;font-weight:bold;">HalliGalli in Website Project</p>
+                <p style="font-size:12px;margin-top:2px;">ⓒ2020.박재현 All Rights Reserved.</p>
+                <p style="font-size:12px;margin-top:2px;">Tel : 010-0000-0000, Mail : parking0930@naver.com</p>
+                <p style="font-size:12px;margin-top:2px;">GitHub : <a href="https://github.com/parking0930">https://github.com/parking0930</a></p>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="//code.jquery.com/jquery-1.11.1.js"></script>
+<script>
+    function new_pop() {
+        var popup = window.open("/join", '_blank', 'toolbar=no,location=no,status=no,menubar=no,scrollbars=auto,resizable=no,directories=no,width=340,height=370,top=200,left=800');
+        if (popup == null || popup.screenLeft == 0) {
+            alert('팝업 차단 해제 후 다시 시도해주세요.');
+        }
+    }
+    function Sending()
+    {
+        $.ajax({
+            url: 'http://localhost:3000/SendToMe',
+            dataType: 'json',
+            type: 'POST',
+            data: {'id':"<%=id%>",'title':$('#title').val(),'contents':$('#contents').val().replace(/(?:\r\n|\r|\n)/g, '<br>'),'name':"<%=session.user%>"}
+        });
+        location.href = '/'+"<%=id%>";
+    }
+    function toback()
+    {
+        location.href = '/'+"<%=id%>";
+    }
+</script>
+
+</html>

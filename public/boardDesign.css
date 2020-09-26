@@ -1,0 +1,143 @@
+body,p,h1,h2,h3,h4,h5,h6,ul,ol,li,dl,dt,dd,table,th,td,form,fieldset,
+legend,input,textarea,button,select{margin:0;padding:0}
+img,fieldset{border:0}
+ul,ol{list-style:none}
+em,address{font-style:normal}
+a{text-decoration:none}
+a:hover,a:active,a:focus{text-decoration:none}
+@font-face { font-family: 'gyunggi'; src: url(gyunggi.ttf) format('truetype'); }
+body { font-family: gyunggi; }
+
+#wrap
+{
+    float:left;
+    width:100%;
+    _border: 0.5px solid black;
+}
+#container
+{
+    width:1000px;
+    margin:0 auto;
+}
+#header
+{
+    float:left;
+    width:1000px;
+    height: 70px;
+    _border:1px solid blue;
+}
+#headimg
+{
+    float: left;
+    margin-left: 350px;
+    width: 300px;
+    height: 67px;
+}
+.menu
+{
+    float: left;
+    width:1000px;
+    height:40px;
+    background:black;
+}
+.menu_center
+{
+    float: left;
+    width:1000px;
+}
+.menu_center ul li
+{
+    float: left;
+    font-size: 20px;
+    color: white;
+    padding-top: 6px;
+    padding-bottom: 6px;
+}
+.menu_content
+{
+    padding-left: 46px;
+    padding-right: 46px;
+    _border: 1px solid red;
+}
+.menu_content:hover
+{
+    background-color: #454545;
+}
+.left
+{
+    float:left;
+    width:230px;
+    _border:1px solid blue;
+}
+.left_content
+{
+    float:left;
+    width:230px;
+    height:550px;
+    margin-top:10px;
+    _border: 1px solid silver;
+    _background:#edeef0
+}
+.right
+{
+    float:left;
+    width:760px;/*150*/
+    margin-left:10px;
+    _border:1px solid red;
+}
+.right_content
+{
+    float:left;
+    width:760px;
+    height:550px;
+    margin-top:10px;
+    _background:#f8f8f8;
+    border: 1px solid silver;
+    border-radius: 10px;
+}
+#footer
+{
+    float:left;
+    width:1000px;
+    height:80px;
+    margin:10px 0 30px 0;
+    background:#e1e1e1
+}
+#gamestart
+{
+    float: left;
+    width:330px;
+    height: 75px;
+    margin-top: 5px;
+    border: 0.5px solid black;
+}
+.btn
+{
+    cursor:pointer;
+}
+#logo
+{
+    padding: 15px;
+    background-color:rgb(32, 32, 32);
+    text-align: center;
+}
+.board_list
+{
+    text-align: left;
+    padding: 10px;
+    border-left:1px solid silver;
+    border-right:1px solid silver;
+    border-bottom:1px solid silver;
+    cursor: pointer;
+}
+.board_list:hover
+{
+    background-color: #e1e1e1;
+}
+.board_list_text
+{
+    font-weight: bold;
+    font-size: 20px;
+    margin-left: 10px;
+    color: black;
+}

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="kr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>HG Project - 회원가입</title>
+    <link rel="stylesheet" type="text/css" href="/joinCSS.css">
+</head>
+
+<body>
+    <div id="wrap">
+        <div id="container">
+            <div id="header">
+                <a href="/">
+                    <img id="headimg" src="/logo.png">
+                </a>
+            </div>
+            <div class="menu">
+                <div class="menu_center">
+                    <ul>
+                        <a href="/">
+                            <li class="menu_content">메인</li>
+                        </a>
+                        <li>|</li>
+                        <a href="/board_notice">
+                        <li class="menu_content">공지사항</li>
+                        </a>
+                        <li>|</li>
+                        <a href="/board_free">
+                        <li class="menu_content">유저게시판</li>
+                        </a>
+                        <li>|</li>
+                        <a href="/ranking">
+                        <li class="menu_content">랭킹</li>
+                        </a>
+                        <li>|</li>
+                        <li class="menu_content">포인트샵</li>
+                        <li>|</li>
+                        <li class="menu_content">이용방법</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="center">
+                <div class="center_content">
+                    <div class="join_contents">
+                      <div class="top_join_contents">
+                        <text class="top_font">서비스 이용약관 (필수)</text>
+                      </div>
+                      <text class="fonts">HGW Project 서비스 이용 약관 입니다.</text>
+                    </div>
+                    <div class="agree_contents">
+                    <input type="checkbox" name="service" id="service1" style="margin-top:0px;">
+                    <label for="service1" class="fonts">동의합니다.</label>
+                    </div>
+                    <div class="join_contents">
+                      <div class="top_join_contents">
+                        <text class="top_font">개인정보 수집 및 이용 동의 (필수)</text>
+                      </div>
+                      <text class="fonts">HGW Project 개인정보 수집 및 이용 동의 약관 입니다.</text>
+                    </div>
+                    <div class="agree_contents">
+                    <input type="checkbox" name="service" id="service2" style="margin-top:0px;">
+                    <label for="service2" class="fonts">동의합니다.</label>
+                    </div>
+                    <div class="button_contents">
+                    <button onclick="nextBtn();" style="width:80px;height:30px;">다음 ></button>
+                    </div>
+                </div>
+            </div>
+            <div id="footer" style="text-align:center;font-family: 'Nanum Gothic';">
+                <p style="font-size:13px;margin-top:9px;font-weight:bold;">HalliGalli in Website Project</p>
+                <p style="font-size:12px;margin-top:2px;">ⓒ2020.박재현 All Rights Reserved.</p>
+                <p style="font-size:12px;margin-top:2px;">Tel : 010-0000-0000, Mail : parking0930@naver.com</p>
+                <p style="font-size:12px;margin-top:2px;">GitHub : <a href="https://github.com/parking0930">https://github.com/parking0930</a></p>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="//code.jquery.com/jquery-1.11.1.js"></script>
+<script>
+  function nextBtn()
+  {
+    var chk = document.getElementsByName("service");
+    var ischecked = true;
+    for(var i=0;i<chk.length;i++){
+      if (chk[i].checked==false)
+      {
+        ischecked = false;
+        alert("모든 약관에 동의해야합니다.")
+        return;
+      }
+    }
+    location.replace('/joinNext');
+  }
+</script>
+
+</html>

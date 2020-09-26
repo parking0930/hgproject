@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="kr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>HG Project - Read</title>
+    <link rel="stylesheet" type="text/css" href="/showCSS.css">
+</head>
+
+<body>
+    <div id="wrap">
+        <div id="container">
+            <div id="header">
+                <a href="/">
+                    <img id="headimg" src="/logo.png">
+                </a>
+            </div>
+            <div class="menu">
+                <div class="menu_center">
+                    <ul>
+                        <a href="/">
+                        <li class="menu_content">메인</li>
+                        </a>
+                        <li>|</li>
+                        <a href="/board_notice">
+                        <li class="menu_content">공지사항</li>
+                        </a>
+                        <li>|</li>
+                        <a href="/board_free">
+                        <li class="menu_content">유저게시판</li>
+                        </a>
+                        <li>|</li>
+                        <a href="/ranking">
+                        <li class="menu_content">랭킹</li>
+                        </a>
+                        <li>|</li>
+                        <li class="menu_content">포인트샵</li>
+                        <li>|</li>
+                        <li class="menu_content">이용방법</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="center">
+                <div class="center_content">
+                    <div id="top">
+                        <text style="font-weight:bold; font-size:14px;">제목: </text>
+                        <text id="title"></text>
+                    </div>
+                    <div id="top2">
+                        <text style="font-weight:bold; font-size:14px;">작성자:</text>
+                        <text id="name" class="texts"></text>
+                        <text style="font-weight:bold; font-size:14px;">작성일:</text>
+                        <text id="date" class="texts"></text>
+                        <text style="font-weight:bold; font-size:14px;">조회수:</text>
+                        <text id="ck" class="texts"></text>
+                    </div>
+                    <div id="center">
+
+                    </div>
+                    <div id="bottom">
+                    <% if(session.user == result[0]['name']){%>
+                        <input class="btns" type="button" value="수정">
+                        <input class="btns" type="button" value="삭제">
+                    <% } %>
+                        <input class="btns" type="button" value="목록" onclick="ret();">
+                    </div>
+                </div>
+            </div>
+            <div id="footer" style="text-align:center;font-family: 'Nanum Gothic';">
+                <p style="font-size:13px;margin-top:9px;font-weight:bold;">HalliGalli in Website Project</p>
+                <p style="font-size:12px;margin-top:2px;">ⓒ2020.박재현 All Rights Reserved.</p>
+                <p style="font-size:12px;margin-top:2px;">Tel : 010-0000-0000, Mail : parking0930@naver.com</p>
+                <p style="font-size:12px;margin-top:2px;">GitHub : <a href="https://github.com/parking0930">https://github.com/parking0930</a></p>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="//code.jquery.com/jquery-1.11.1.js"></script>
+<script>
+    $('#title').append("<%=result[0]['title']%>");
+    $('#name').append("<%=result[0]['name']%>");
+    var contents = "<%=result[0]['contents']%>";
+    while(true)
+    {
+        if(!(contents.match("&lt;br&gt;")))
+        {
+            break;
+        }
+        contents = contents.replace("&lt;br&gt;","<br>");
+    }
+    $('#center').append(contents);
+    var ymd = new Date("<%=result[0]['time']%>");
+    ymd = ymd.getFullYear()+"/"+(ymd.getMonth()+1)+"/"+ymd.getDate();
+    $('#date').append(ymd);
+    $('#ck').append("<%=result[0]['ck']%>");
+    function new_pop() {
+        var popup = window.open("/join", '_blank', 'toolbar=no,location=no,status=no,menubar=no,scrollbars=auto,resizable=no,directories=no,width=340,height=370,top=200,left=800');
+        if (popup == null || popup.screenLeft == 0) {
+            alert('팝업 차단 해제 후 다시 시도해주세요.');
+        }
+    }
+    function ret()
+    {
+        location.href = "/"+"<%=board%>";
+    }
+</script>
+
+</html>
