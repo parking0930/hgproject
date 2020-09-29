@@ -37,6 +37,7 @@ a:hover,a:active,a:focus{text-decoration:none}
        url('../fonts/NanumGothic/NanumGothic-ExtraBold.ttf') format('truetype');
 }
 body { font-family: gyunggi; }
+
 #wrap
 {
     float:left;
@@ -95,11 +96,17 @@ body { font-family: gyunggi; }
 .center
 {
     float:left;
+    width:1000px;
+    _border:1px solid blue;
+}
+.center_content
+{
+    float:left;
+    margin-left:125px;
+    margin-right:125px;
     width:750px;
-    height:540px;
-    margin-left: 10px;
+    height:520px;
     margin-top:10px;
-    border: 1px solid silver;
     text-align: center;
 }
 #footer
@@ -108,7 +115,10 @@ body { font-family: gyunggi; }
     width:1000px;
     height:80px;
     margin:10px 0 30px 0;
-    background:#e1e1e1
+    background:#E9E9E9;
+    border:0.5px solid silver;
+    text-align:center;
+    font-family: 'Nanum Gothic';
 }
 #gamestart
 {
@@ -122,51 +132,56 @@ body { font-family: gyunggi; }
 {
     cursor:pointer;
 }
-#top
+#ranktb1
 {
-    width:700px;
-    margin: 5px;
+    border-collapse: collapse;
     margin-left: 25px;
-    padding-top: 5px;
-    padding-left: 10px;
+    margin-right: 25px;
+}
+#ranktb1 tr th
+{
+    background-color: black;
+    font-weight: bold;
+    color: white;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    width:140px;
+}
+#ranktb2
+{
+    border-collapse: collapse;
+    margin-left: 25px;
+    margin-right: 25px;
+}
+#ranktb2 tbody
+{
+    display: block;
+    overflow: auto;
+    width:698px;
+    height:400px;
+}
+#ranktb2 tr
+{
+    border-bottom: 1px solid silver;
+}
+#ranktb2 tr td
+{
+    padding-top: 6px;
+    padding-bottom: 6px;
+    width:140px;
+}
+#ranktb2 tr:hover
+{
+    background-color: #e1e1e1;
+}
+#searchdiv
+{
+    width:750px;
     padding-bottom: 5px;
-    border-top: 1px solid silver;
-    border-bottom: 1px solid silver;
-    text-align: left;
-}
-#top2
-{
-    width:700px;
-    margin: 5px;
-    margin-left: 25px;
     text-align: right;
 }
-#center
+.imgsize
 {
-    width:700px;
-    margin-left: 25px;
-    margin-right: 25px;
-    height: 420px;
-    text-align: left;
-    padding: 10px;
-    border-top: 1px solid silver;
-    border-bottom: 1px solid silver;
-}
-#bottom
-{
-    width:700px;
-    text-align: right;
-    margin-top: 5px;
-    margin-left: 25px;
-    margin-right: 25px;
-}
-.btns
-{
-    width:70px;
-    height: 25px;
-}
-.texts
-{
-    margin-right:40px;
-    font-size: 14px;
+    width:40px;
+    height: 40px;
 }

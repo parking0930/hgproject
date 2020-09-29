@@ -158,6 +158,40 @@ app.get('/write/:board',function(req,res){
             {
                 if(req.session.user == "관리자")
                 {
+                    res.render('write',{num:0,result:{},id:board,session:req.session});
+                }
+                else
+                {
+                    res.redirect('/');
+                }
+            }
+            else
+            {
+                res.render('write',{num:0,result:{},id:board,session:req.session});
+            }
+        }
+        else
+        {
+            res.redirect('/');
+        }
+    }
+    else
+    {
+        res.redirect('/');
+    }
+});
+
+app.get('/write/:board/:id',function(req,res){
+    var board = req.params.board;
+    var id = req.params.id;
+    if(req.session.user)
+    {
+        if(board=="board_free" || board=="board_bt" || board=="board_notice")
+        {
+            if(board=="board_notice" || board=="board_event")
+            {
+                if(req.session.user == "관리자")
+                {
                     res.render('write',{id:board,session:req.session});
                 }
                 else
@@ -167,7 +201,22 @@ app.get('/write/:board',function(req,res){
             }
             else
             {
-                res.render('write',{id:board,session:req.session});
+              usersql.showWrite(board,id,function(err,result){
+                  if(err)throw err;
+                  var i = 0;
+                  for(var i in result)
+                  {
+                      i++;
+                  }
+                  if(i!=0)
+                  {
+                      res.render('write',{num:id,id:board,result:result,session:req.session});
+                  }
+                  else
+                  {
+                      res.redirect('/');
+                  }
+              });
             }
         }
         else
@@ -250,7 +299,7 @@ app.get('/show/:board/:id',function(req,res){
         }
         if(i!=0)
         {
-            res.render('show',{result:result,board:board,session:req.session});
+            res.render('show',{num:id,id:board,result:result,board:board,session:req.session});
         }
         else
         {
@@ -265,5 +314,42 @@ app.post('/SendToMe',function(req,res){
     var name = req.body.name;
     usersql.boardWrite(id,title,contents,name,function(err,result){
         if(err)throw err;
+    });
+});
+
+app.post('/SendToMeEdit',function(req,res){
+    var id = req.body.id;
+    var title = req.body.title;
+    var contents = req.body.contents;
+    var num = req.body.num;
+
+    usersql.boardUpdate(id,title,contents,num,function(err,result){
+        if(err)throw err;
+    });
+});
+
+app.get('/deleteW/:board/:num',function(req,res){
+  //req.session.user == "관리자"
+  var board = req.params.board;
+  var num = req.params.num;
+  usersql.findNickWrite(board,num,function(err,result){
+      if(err)throw err;
+      if(req.session.user == result[0]['name']){
+        usersql.deleteWrite(board,num,function(err){
+            if(err)throw err;
+        });
+      }
+  });
+  res.redirect('/'+board);
+});
+
+app.get('/room',function(req,res){
+        res.render('room',{});
+});
+
+app.get('/ranking',function(req,res){
+    usersql.ranking(function(err,result){
+        if(err) throw err;
+        res.render('ranking',{rank:result});
     });
 });

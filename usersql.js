@@ -103,3 +103,33 @@ exports.getfiveboard = function(board,callback){
         callback(null,result);
     });
 };
+
+exports.boardUpdate = function(id,title,contents,num,callback){
+  var q = 'UPDATE '+id+' SET title="'+title+'", contents="'+contents+'" WHERE id='+num;
+  conn.query(q,function(err,result,field){
+      if(err){callback(true);}
+  });
+};
+
+exports.findNickWrite = function(board, num, callback){
+    var q = 'SELECT name FROM '+board+' WHERE id='+num;
+    conn.query(q,function(err,result,field){
+        if(err){callback(true);}
+        callback(null,result);
+    });
+};
+
+exports.deleteWrite = function(board,num,callback){
+    var q = 'DELETE FROM '+board+ ' WHERE id='+num;
+    conn.query(q,function(err,result,field){
+        if(err){callback(true);}
+    });
+};
+
+exports.ranking = function(callback){
+    var q = 'SELECT name,win,draw,lose FROM users ORDER BY win-lose DESC LIMIT 100';
+    conn.query(q,function(err,result,field){
+        if(err){callback(true,null);}
+        callback(null,result);
+    });
+};

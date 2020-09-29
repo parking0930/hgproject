@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="kr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>HG Project - Ranking</title>
+    <link rel="stylesheet" type="text/css" href="/rankCSS.css">
+</head>
+
+<body>
+    <div id="wrap">
+        <div id="container">
+            <div id="header">
+                <a href="/">
+                    <img id="headimg" src="/logo.png">
+                </a>
+            </div>
+            <div class="menu">
+                <div class="menu_center">
+                    <ul>
+                        <a href="/">
+                            <li class="menu_content">메인</li>
+                        </a>
+                        <li>|</li>
+                        <a href="/board_notice">
+                        <li class="menu_content">공지사항</li>
+                        </a>
+                        <li>|</li>
+                        <a href="/board_free">
+                        <li class="menu_content">유저게시판</li>
+                        </a>
+                        <li>|</li>
+                        <a href="/ranking">
+                        <li class="menu_content">랭킹</li>
+                        </a>
+                        <li>|</li>
+                        <li class="menu_content">포인트샵</li>
+                        <li>|</li>
+                        <li class="menu_content">이용방법</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="center">
+                <div class="center_content">
+                    <img src="/rankimg.png" style="width:270px;height:50px;">
+                    <div id="searchdiv">
+                        <input type="text" placeholder="닉네임">
+                        <input type="button" value="검색" style="width:60px;margin-right:25px;" onclick="alert('준비중');">
+                    </div>
+                    <table id="ranktb1">
+                        <thead>
+                            <tr>
+                                <th>순위</th>
+                                <th>닉네임</th>
+                                <th>승</th>
+                                <th>무</th>
+                                <th>패</th>
+                            </tr>
+                        </thead>
+                    </table>
+                    <table id="ranktb2">
+                        <tbody id="player_ranking">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div id="footer">
+                <p style="font-size:13px;margin-top:9px;font-weight:bold;">HalliGalli in Website Project</p>
+                <p style="font-size:12px;margin-top:2px;">ⓒ2020.박재현 All Rights Reserved.</p>
+                <p style="font-size:12px;margin-top:2px;">Tel : 010-0000-0000, Mail : parking0930@naver.com</p>
+                <p style="font-size:12px;margin-top:2px;">GitHub : <a href="https://github.com/parking0930">https://github.com/parking0930</a></p>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="//code.jquery.com/jquery-1.11.1.js"></script>
+<script>
+    function new_pop() {
+        var popup = window.open("/join", '_blank',
+            'toolbar=no,location=no,status=no,menubar=no,scrollbars=auto,resizable=no,directories=no,width=340,height=370,top=200,left=800'
+        );
+        if (popup == null || popup.screenLeft == 0) {
+            alert('팝업 차단 해제 후 다시 시도해주세요.');
+        }
+    }
+    function ranking()
+    {
+        $('#player_ranking').html('');
+        <% for(var i in rank)
+            {
+                var cnt = parseInt(i)+1;
+                var name = rank[i]['name'];
+                var win = rank[i]['win'];
+                var draw = rank[i]['draw'];
+                var lose = rank[i]['lose'];
+        %>
+        if("<%=cnt%>" == "1")
+        {
+            $('#player_ranking').append('<tr><td><img class="imgsize" src="/gold.png"></td><td><%=name%></td><td><%=win%></td><td><%=draw%></td><td><%=lose%></td></tr>');
+        }
+        else if("<%=cnt%>" == "2")
+        {
+            $('#player_ranking').append('<tr><td><img class="imgsize" src="/silver.png"></td><td><%=name%></td><td><%=win%></td><td><%=draw%></td><td><%=lose%></td></tr>');
+        }
+        else if("<%=cnt%>" == "3")
+        {
+            $('#player_ranking').append('<tr><td><img class="imgsize" src="/brown.png"></td><td><%=name%></td><td><%=win%></td><td><%=draw%></td><td><%=lose%></td></tr>');
+        }
+        else
+        {
+            $('#player_ranking').append("<tr><td><%=cnt%></td><td><%=name%></td><td><%=win%></td><td><%=draw%></td><td><%=lose%></td></tr>");
+        }
+        <% } %>
+    }
+    ranking();
+</script>
+
+</html>

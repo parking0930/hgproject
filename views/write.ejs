@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>HG Project - Write</title>
+    <link rel="stylesheet" type="text/css" href="/boardDesign.css">
     <link rel="stylesheet" type="text/css" href="/writeCSS.css">
 </head>
 
@@ -41,15 +42,70 @@
                 </div>
             </div>
             <%if(session.user){ %>
-            <div class="center">
-                <div class="center_content">
+              <%if(id=="board_free" | id=="board_bt"){ %>
+              <div class="left">
+                  <div class="left_content">
+                      <div id="logo">
+                          <text style="font-weight:bold;font-size:30px;color:white;">유저게시판</text>
+                      </div>
+                      <a href="/board_free">
+                      <div class="board_list">
+                          <text class="board_list_text">▶ 자유게시판</text>
+                      </div>
+                      </a>
+                      <a href="/board_bt">
+                      <div class="board_list">
+                          <text class="board_list_text">▶ 공략게시판</text>
+                      </div>
+                      </a>
+                  </div>
+              </div>
+              <% }else if(id=="board_notice"){ %>
+                <div class="left">
+                    <div class="left_content">
+                        <div id="logo">
+                            <text style="font-weight:bold;font-size:30px;color:white;">공지사항</text>
+                        </div>
+                        <a href="/board_notice">
+                        <div class="board_list">
+                            <text class="board_list_text">▶ 공지사항</text>
+                        </div>
+                        </a>
+                        <a href="#">
+                        <div class="board_list">
+                            <text class="board_list_text">▶ 이벤트</text>
+                        </div>
+                        </a>
+                        <a href="#">
+                        <div class="board_list">
+                            <text class="board_list_text">▶ 건의사항</text>
+                        </div>
+                        </a>
+                    </div>
+                </div>
+              <% } %>
+              <div class="right">
+                <div id="title_line">
+                  <h2 style="margin-top:20px;">글쓰기</h2>
+                </div>
+                <div class="center">
+                    <input id="title" type="text" style="width:660px;height: 30px;font-size:15px;margin-bottom:10px;padding-left:10px;" placeholder="제목을 입력하세요." maxlength="50"><br>
+                    <textarea id="contents" style="width:650px;height: 400px;resize: none;padding:10px;" placeholder="내용을 입력하세요."></textarea><br>
+                    <div id="button_area">
+                      <input type="button" value="글쓰기" onclick="Sending();" style="width:80px;height:30px;">
+                      <input type="button" value="취소" onclick="toback();" style="width:80px;height:30px;">
+                    </div>
+                </div>
+              </div>
+              <!--
+                <div class="center">
                     <br>
                     <input id="title" type="text" style="width:600px;height: 20px;margin:4px;" placeholder="제목을 입력하세요." maxlength="25"><br>
                     <textarea id="contents" style="width:600px;height: 400px;resize: none;" placeholder="내용을 입력하세요."></textarea><br>
                     <input type="button" value="글쓰기" onclick="Sending();" style="width:80px;height:30px;">
                     <input type="button" value="취소하기" onclick="toback();" style="width:80px;height:30px;">
                 </div>
-            </div>
+              -->
             <% }else{ %>
             <h1>로그인이 필요합니다.</h1>
             <% } %>
@@ -64,6 +120,12 @@
 </body>
 <script src="//code.jquery.com/jquery-1.11.1.js"></script>
 <script>
+  <%if(num != 0){%>
+  {
+    $('#title').val("<%=result[0]['title']%>");
+    $('#contents').val("<%=result[0]['contents']%>");
+  }
+  <% } %>
     function new_pop() {
         var popup = window.open("/join", '_blank', 'toolbar=no,location=no,status=no,menubar=no,scrollbars=auto,resizable=no,directories=no,width=340,height=370,top=200,left=800');
         if (popup == null || popup.screenLeft == 0) {
@@ -72,6 +134,7 @@
     }
     function Sending()
     {
+      <%if(num == 0){%>
         $.ajax({
             url: 'http://localhost:3000/SendToMe',
             dataType: 'json',
@@ -79,6 +142,15 @@
             data: {'id':"<%=id%>",'title':$('#title').val(),'contents':$('#contents').val().replace(/(?:\r\n|\r|\n)/g, '<br>'),'name':"<%=session.user%>"}
         });
         location.href = '/'+"<%=id%>";
+      <%}else{%>
+        $.ajax({
+            url: 'http://localhost:3000/SendToMeEdit',
+            dataType: 'json',
+            type: 'POST',
+            data: {'num':"<%=num%>",'id':"<%=id%>",'title':$('#title').val(),'contents':$('#contents').val().replace(/(?:\r\n|\r|\n)/g, '<br>')}
+        });
+        location.href = '/'+"<%=id%>";
+      <% }%>
     }
     function toback()
     {

@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>HG Project - Read</title>
+    <link rel="stylesheet" type="text/css" href="/boardDesign.css">
     <link rel="stylesheet" type="text/css" href="/showCSS.css">
 </head>
 
@@ -40,8 +41,49 @@
                     </ul>
                 </div>
             </div>
-            <div class="center">
-                <div class="center_content">
+            <%if(id=="board_free" | id=="board_bt"){ %>
+            <div class="left">
+                <div class="left_content">
+                    <div id="logo">
+                        <text style="font-weight:bold;font-size:30px;color:white;">유저게시판</text>
+                    </div>
+                    <a href="/board_free">
+                    <div class="board_list">
+                        <text class="board_list_text">▶ 자유게시판</text>
+                    </div>
+                    </a>
+                    <a href="/board_bt">
+                    <div class="board_list">
+                        <text class="board_list_text">▶ 공략게시판</text>
+                    </div>
+                    </a>
+                </div>
+            </div>
+            <% }else if(id=="board_notice"){ %>
+              <div class="left">
+                  <div class="left_content">
+                      <div id="logo">
+                          <text style="font-weight:bold;font-size:30px;color:white;">공지사항</text>
+                      </div>
+                      <a href="/board_notice">
+                      <div class="board_list">
+                          <text class="board_list_text">▶ 공지사항</text>
+                      </div>
+                      </a>
+                      <a href="#">
+                      <div class="board_list">
+                          <text class="board_list_text">▶ 이벤트</text>
+                      </div>
+                      </a>
+                      <a href="#">
+                      <div class="board_list">
+                          <text class="board_list_text">▶ 건의사항</text>
+                      </div>
+                      </a>
+                  </div>
+              </div>
+            <% } %>
+                <div class="center">
                     <div id="top">
                         <text style="font-weight:bold; font-size:14px;">제목: </text>
                         <text id="title"></text>
@@ -59,13 +101,12 @@
                     </div>
                     <div id="bottom">
                     <% if(session.user == result[0]['name']){%>
-                        <input class="btns" type="button" value="수정">
-                        <input class="btns" type="button" value="삭제">
+                        <input class="btns" type="button" onclick="edit();" value="수정">
+                        <input class="btns" type="button" onclick="deleteW();" value="삭제">
                     <% } %>
                         <input class="btns" type="button" value="목록" onclick="ret();">
                     </div>
                 </div>
-            </div>
             <div id="footer" style="text-align:center;font-family: 'Nanum Gothic';">
                 <p style="font-size:13px;margin-top:9px;font-weight:bold;">HalliGalli in Website Project</p>
                 <p style="font-size:12px;margin-top:2px;">ⓒ2020.박재현 All Rights Reserved.</p>
@@ -103,6 +144,16 @@
     {
         location.href = "/"+"<%=board%>";
     }
+    <% if(session.user == result[0]['name']){%>
+    function edit()
+    {
+      location.href = "/write/"+"<%=board%>"+"/"+"<%=num%>";
+    }
+    function deleteW()
+    {
+      location.href = "/deleteW/"+"<%=board%>"+"/"+"<%=num%>";
+    }
+    <%}%>
 </script>
 
 </html>

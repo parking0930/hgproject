@@ -6,6 +6,36 @@ em,address{font-style:normal}
 a{text-decoration:none}
 a:hover,a:active,a:focus{text-decoration:none}
 @font-face { font-family: 'gyunggi'; src: url(gyunggi.ttf) format('truetype'); }
+@font-face {
+  font-family: 'Nanum Gothic';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../fonts/NanumGothic/NanumGothic-Regular.eot');
+  src: url('../fonts/NanumGothic/NanumGothic-Regular.eot?#iefix') format('embedded-opentype'),
+       url('../fonts/NanumGothic/NanumGothic-Regular.woff2') format('woff2'),
+       url('../fonts/NanumGothic/NanumGothic-Regular.woff') format('woff'),
+       url('../fonts/NanumGothic/NanumGothic-Regular.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Nanum Gothic';
+  font-style: normal;
+  font-weight: 700;
+  src: url('../fonts/NanumGothic/NanumGothic-Bold.eot');
+  src: url('../fonts/NanumGothic/NanumGothic-Bold.eot?#iefix') format('embedded-opentype'),
+       url('../fonts/NanumGothic/NanumGothic-Bold.woff2') format('woff2'),
+       url('../fonts/NanumGothic/NanumGothic-Bold.woff') format('woff'),
+       url('../fonts/NanumGothic/NanumGothic-Bold.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Nanum Gothic';
+  font-style: normal;
+  font-weight: 800;
+  src: url('../fonts/NanumGothic/NanumGothic-ExtraBold.eot');
+  src: url('../fonts/NanumGothic/NanumGothic-ExtraBold.eot?#iefix') format('embedded-opentype'),
+       url('../fonts/NanumGothic/NanumGothic-ExtraBold.woff2') format('woff2'),
+       url('../fonts/NanumGothic/NanumGothic-ExtraBold.woff') format('woff'),
+       url('../fonts/NanumGothic/NanumGothic-ExtraBold.ttf') format('truetype');
+}
 body { font-family: gyunggi; }
 
 #wrap
@@ -95,14 +125,6 @@ body { font-family: gyunggi; }
     border: 1px solid silver;
     border-radius: 10px;
 }
-#footer
-{
-    float:left;
-    width:1000px;
-    height:80px;
-    margin:10px 0 30px 0;
-    background:#e1e1e1
-}
 #gamestart
 {
     float: left;
@@ -114,6 +136,17 @@ body { font-family: gyunggi; }
 .btn
 {
     cursor:pointer;
+}
+#footer
+{
+    float:left;
+    width:1000px;
+    height:80px;
+    margin:10px 0 30px 0;
+    background:#E9E9E9;
+    border:0.5px solid silver;
+    text-align:center;
+    font-family: 'Nanum Gothic';
 }
 #logo
 {

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="kr">
+<head>
+    <meta charset="UTF-8">
+    <title>HG Project - Waiting Room</title>
+    <link rel="stylesheet" type="text/css" href="roomCSS.css">
+</head>
+<body>
+        <div class="popup" data-popup="popup-1">
+            <div class="popup-inner">
+            <div id="popup_content">
+                <p style="font-weight: bold;font-size: 20px;">Create Room</p>
+                <table id="rt">
+                    <tr>
+                        <th>
+                            방 제목 :
+                        </th>
+                        <td>
+                            <input type="text" id="room_name" style="width:300px" maxlength="20">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            방 인원 :
+                        </th>
+                        <td>
+                            <input type="radio" id="room_player" name="room_player" value="2" checked>2명
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="text-align: center">
+                            <input type="button" value="만들기" id="room_create2">
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <a class="popup-close" data-popup-close="popup-1" href="#">x</a>
+            </div>
+        </div>
+    <div id="wrap">
+        <div id="room">
+            <div id="room_bx">
+                <table id="room_board">
+                    <thead>
+                    <tr>
+                        <th id="number">번호</th>
+                        <th id="contents">제목</th>
+                        <th>방장</th>
+                        <th>인원</th>
+                    </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+            <div id="room_buttons">
+                <input type="button" value="방 새로고침" id="room_ref">
+                <input type="button" value="방 만들기" id="room_create" data-popup-open="popup-1">
+            </div>
+        </div>
+        <div id="player">
+            <div id="player_n">
+                <div id="user_area">
+
+                </div>
+            </div>
+            <div id="player_chat">
+                <textarea id="chatLog" readonly></textarea>
+                <input id="message" type="text" maxlength="100">
+                <input id="chat_sub" type="button" value="보내기"/>
+            </div>
+        </div>
+        <div id="notice">
+            <div id="player_info">
+                <div id="player_info2">
+
+                </div>
+            </div>
+            <div id="ranking">
+
+            </div>
+            <div id="buttons">
+
+            </div>
+        </div>
+    </div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.js"></script>
+    <script>
+
+    </script>
+</body>
+</html>

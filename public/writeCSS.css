@@ -65,21 +65,21 @@ body { font-family: gyunggi; }
 }
 .center
 {
-    float:left;
-    width:250px;
-    _border:1px solid blue;
+  width: 650px;
+  margin-top: 10px;
+  margin-left: 20px;
 }
-.center_content
+#button_area
 {
-    float:left;
-    width:750px;
-    margin-left: 125px;
-    margin-left: 125px;
-    height:500px;
-    margin-top:10px;
-    border: 1px solid silver;
-    border-radius: 10px;
-    text-align: center;
+  margin-top: 10px;
+  text-align: center;
+}
+#title_line
+{
+  margin-left: 20px;
+  width: 680px;
+  height: 30px;
+  border-bottom: 1px solid black;
 }
 #footer
 {
