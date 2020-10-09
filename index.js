@@ -11,6 +11,84 @@ var io = require('socket.io')(http);
 
 app.set('view engine','ejs');
 app.set('views','./views');
+////////////////////////////////////////////////////////////////////////
+/* Socket Setting */
+var userCount = 0;
+var sockets = [];
+var users = [];
+var UsrRoom = [];
+io.on('connection',function(socket){
+    console.log('user connected: ',socket.id);
+    socket.on('disconnect',function(){
+        console.log('user disconnected: ',socket.id);
+        var index = sockets.indexOf(socket.id);
+        var state = users[index];
+        if(UsrRoom[index]=='Hello')
+        {
+            userCount -= 1;
+            if(typeof(state)!="undefined" && state.indexOf("(m)")==-1)
+            {
+                io.emit('receive message',("시스템|"+users[index]+"님이 나갔습니다."));
+            }
+            users.splice(index,1);
+            sockets.splice(index,1);
+            UsrRoom.splice(index,1);
+            io.sockets.in('Hello').emit('userCount',userCount);
+            io.sockets.in('Hello').emit('RefreshUser',users);
+            socket.leave('Hello');
+        }
+        else
+        {
+            io.emit('disAll',socket.id); // 만약 방장이면 방 삭제
+            io.emit('roomout',socket.id);
+        }
+    });
+    ///////////////////////////////////////////////////////////////////
+    /* Main Room Emit */
+    socket.on('joinSVRoom',function(roomId){
+        socket.join(roomId);
+        userCount += 1;
+        io.sockets.in('Hello').emit('userCount',userCount);
+    });
+    socket.on('send message',function(name,text){
+        if(text!="")
+        {
+            var msg = name + '|' + text;
+            io.sockets.in('Hello').emit('receive message',msg);
+        }
+    });
+    socket.on('OnUser',function(onUser){
+        var multi;
+        for(var k=0;k<users.length;k++)// 중복 유저 체크
+        {
+            if(users[k]==onUser)
+            {
+                multi = onUser + "(m)";
+            }
+        }
+        if(multi)
+        {
+            sockets.push(socket.id);
+            users.push(multi);
+            UsrRoom.push(Object.keys(io.sockets.adapter.sids[socket.id])[1]);
+            io.to(socket.id).emit('multiout');
+            socket.disconnect();
+            return;
+        }
+        sockets.push(socket.id);
+        users.push(onUser);
+        UsrRoom.push(Object.keys(io.sockets.adapter.sids[socket.id])[1]);
+        io.sockets.in('Hello').emit('receive message',("시스템|"+onUser+"님이 접속하셨습니다."));
+        io.sockets.in('Hello').emit('RefreshUser',users);
+        io.sockets.in('Hello').emit('RoomRefresh');
+    });
+    socket.on('broadcastRoom',function(){
+        io.sockets.in('Hello').emit('RoomRefresh');
+    });
+});
+///////////////////////////////////////////////////////////////////////
+
+
 http.listen(3000, function() {
     console.log("Server Start!");
   });
@@ -344,7 +422,23 @@ app.get('/deleteW/:board/:num',function(req,res){
 });
 
 app.get('/room',function(req,res){
-        res.render('room',{});
+    if(req.session.user)
+    {
+        usersql.ranking(function(err,result){
+            if(err) throw err;
+            usersql.userinfo(req.session.user,function(err,myresult){
+                if(err) throw err;
+                usersql.playgame(function(err,board){
+                    if(err) throw err;
+                    res.render('room',{session:req.session,rank:result,myresult:myresult,board:board});
+                });
+            });
+        });
+    }
+    else
+    {
+        res.render('room',{session:req.session});
+    }
 });
 
 app.get('/ranking',function(req,res){

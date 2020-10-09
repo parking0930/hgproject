@@ -37,6 +37,7 @@
             <a class="popup-close" data-popup-close="popup-1" href="#">x</a>
             </div>
         </div>
+    <% if(session.user){ %>
     <div id="wrap">
         <div id="room">
             <div id="room_bx">
@@ -59,34 +60,185 @@
         </div>
         <div id="player">
             <div id="player_n">
+                <!--<font class="text">접속자 수 : </font>
+                <font id="realtime_user" class="text">0</font><br>-->
                 <div id="user_area">
+                  <div id="connect_user_div">
+                    <font id="text">■ 접속자 :</font>
+                    <font id="realtime_user" class="text">0</font>
+                    <font class="text">명</font>
+                  </div>
+                  <div id="player_list">
 
+                  </div>
                 </div>
+                <!--<textarea id="player_list" readonly></textarea>-->
             </div>
             <div id="player_chat">
+              <div id="chat_titile_div">
+                <font id="chat_titile_text"># 채팅방</font>
+              </div>
+              <div id="chat_area">
+                <!-- 채팅 영역 입니다 -->
+              </div>
+              <div id="chat_sub_div">
+                <input type="text" placeholder="채팅을 입력하세요." id="message" type="text" maxlength="100" style="width:97.5%;height:98%;border:1px solid silver;">
+              </div>
+              <!--
                 <textarea id="chatLog" readonly></textarea>
                 <input id="message" type="text" maxlength="100">
                 <input id="chat_sub" type="button" value="보내기"/>
+              -->
             </div>
         </div>
         <div id="notice">
             <div id="player_info">
                 <div id="player_info2">
-
+                        <form action="/logout">
+                            <table>
+                                <tr>
+                                    <td style="text-align: center">
+                                        <font class="myfont" style="font-weight: bold;"><%= session.user %>님</font>
+                                    </td>
+                                    <td style="text-align: right">
+                                        <input id="logout_btn" type="submit" value="로그아웃">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td rowspan="4">
+                                        <img src="profile.png" style="width:100%;height: 100%; max-width: 70px; max-height: 70px;border-radius:50%;">
+                                    </td>
+                                    <td>
+                                        <a href="#" class="myfont">마이페이지</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <font class="myfont">포인트: <%= myresult[0]['point'] %>P</font>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <font class="myfont">전적: <%= myresult[0]['win'] %>승 <%= myresult[0]['draw'] %>무 <%= myresult[0]['lose'] %>패</font>
+                                    </td>
+                                </tr>
+                            </table>
+                        </form>
                 </div>
             </div>
             <div id="ranking">
-
+                <img src="/rankimg.png" style="position: absolute;width:98%;height: 14%;margin:0.5%">
+                <div style="position: absolute;width:100%;height:85%;margin-top:17%;overflow-y:scroll;">
+                  <table id="ranktb1">
+                      <thead>
+                          <tr>
+                              <th>순위</th>
+                              <th>닉네임</th>
+                          </tr>
+                      </thead>
+                      <tbody></tbody>
+                  </table>
+                </div>
+                <!--<textarea id="player_ranking" readonly></textarea>-->
             </div>
             <div id="buttons">
-
+                <img src="/gameinfobtn.png" onclick="alert('준비중입니다.');" style="position: absolute;width:100%;height: 55%;cursor:pointer;">
+                <a href="/"><img src="/outimg.png" style="position: absolute;width:100%;height: 40%;top:60%;"></a>
             </div>
         </div>
     </div>
     <script src="/socket.io/socket.io.js"></script>
     <script src="//code.jquery.com/jquery-1.11.1.js"></script>
     <script>
+            var nick;
+            var socket = io();
+            socket.on();
+            socket.emit('joinSVRoom','Hello');
+            socket.emit('OnUser',"<%=session.user%>");
 
+            $('#message').keydown(function(key){
+                if(key.keyCode==13)
+                {
+                    // 엔터키 입력 시
+                    if($('#message').val()!='')
+                    {
+                        socket.emit('send message', "<%=session.user%>" , $('#message').val());
+                        $('#message').val('');
+                        $('#message').focus();
+                    }
+                }
+            });
+
+            socket.on('receive message', function(msg){
+              var slicing = msg.split('|');
+              var nick = slicing[0];
+              var message = slicing[1];
+              if(nick=="시스템")
+              {
+                $('#chat_area').append('<div class="chat_nick"><img src="settings.png" class="chat_img"><font class="chat_nick_text">'+nick+'</font></div><div class="chat_dl_sys"><font class="chat_text">'+message+'</font></div>');
+                $('#chat_area').scrollTop($('#chat_area')[0].scrollHeight);
+              }
+              else if(nick=="<%= session.user %>")
+              {
+                $('#chat_area').append('<div class="chat_nick"><img src="profile.png" class="chat_img"><font class="chat_nick_text">'+nick+'</font></div><div class="chat_dl_me"><font class="chat_text">'+message+'</font></div>');
+                $('#chat_area').scrollTop($('#chat_area')[0].scrollHeight);
+              }
+              else
+              {
+                $('#chat_area').append('<div class="chat_nick"><img src="profile.png" class="chat_img"><font class="chat_nick_text">'+nick+'</font></div><div class="chat_dl"><font class="chat_text">'+message+'</font></div>');
+                $('#chat_area').scrollTop($('#chat_area')[0].scrollHeight);
+              }
+            });
+
+            socket.on('userCount',function(cnt){
+                $('#realtime_user').html(cnt);
+            });
+            socket.on('RefreshUser',function(u){
+              $('#player_list').empty();
+              for(var i=0;i<u.length;i++)
+              {
+                  $('#player_list').append('<div class="player_name"><text class="player_font">· '+ u[i] +'</text></div>');
+              }
+            });
+            $('[data-popup-open]').on('click', function(e)  {
+                var targeted_popup_class = jQuery(this).attr('data-popup-open');
+                $('[data-popup="' + targeted_popup_class + '"]').fadeIn(350);
+                e.preventDefault();
+            });
+            //----- CLOSE
+            $('[data-popup-close]').on('click', function(e)  {
+                var targeted_popup_class = jQuery(this).attr('data-popup-close');
+                $('[data-popup="' + targeted_popup_class + '"]').fadeOut(350);
+                e.preventDefault();
+            });
+            function ranking()
+            {
+                $('#player_ranking').html('');
+                <% for(var i in rank)
+                    {
+                        var cnt = parseInt(i)+1;
+                        var name = rank[i]['name'];
+                %>
+                if("<%=cnt%>" == "1")
+                {
+                    $('#ranktb1 > tbody:last').append('<tr class="boardDesign2"><td><img class="imgsize" src="/gold.png"></td><td><%=name%></td>></tr>');
+                }
+                else if("<%=cnt%>" == "2")
+                {
+                    $('#ranktb1 > tbody:last').append('<tr class="boardDesign2"><td><img class="imgsize" src="/silver.png"></td><td><%=name%></td></tr>');
+                }
+                else if("<%=cnt%>" == "3")
+                {
+                    $('#ranktb1 > tbody:last').append('<tr class="boardDesign2"><td><img class="imgsize" src="/brown.png"></td><td><%=name%></td>></tr>');
+                }
+                else
+                {
+                    $('#ranktb1 > tbody:last').append('<tr class="boardDesign2"><td><%=cnt%></td><td><%=name%></td></tr>');
+                }
+                <% } %>
+            }
+            ranking();
     </script>
+    <% }else{ }%>
 </body>
 </html>

@@ -1,5 +1,35 @@
 @font-face { font-family: 'gyunggi'; src: url(gyunggi.ttf) format('truetype'); }
-
+@font-face { font-family: 'BMJUA'; src: url('../fonts/BMJUA.ttf') format('truetype'); }
+@font-face {
+  font-family: 'Nanum Gothic';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../fonts/NanumGothic/NanumGothic-Regular.eot');
+  src: url('../fonts/NanumGothic/NanumGothic-Regular.eot?#iefix') format('embedded-opentype'),
+       url('../fonts/NanumGothic/NanumGothic-Regular.woff2') format('woff2'),
+       url('../fonts/NanumGothic/NanumGothic-Regular.woff') format('woff'),
+       url('../fonts/NanumGothic/NanumGothic-Regular.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Nanum Gothic';
+  font-style: normal;
+  font-weight: 700;
+  src: url('../fonts/NanumGothic/NanumGothic-Bold.eot');
+  src: url('../fonts/NanumGothic/NanumGothic-Bold.eot?#iefix') format('embedded-opentype'),
+       url('../fonts/NanumGothic/NanumGothic-Bold.woff2') format('woff2'),
+       url('../fonts/NanumGothic/NanumGothic-Bold.woff') format('woff'),
+       url('../fonts/NanumGothic/NanumGothic-Bold.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Nanum Gothic';
+  font-style: normal;
+  font-weight: 800;
+  src: url('../fonts/NanumGothic/NanumGothic-ExtraBold.eot');
+  src: url('../fonts/NanumGothic/NanumGothic-ExtraBold.eot?#iefix') format('embedded-opentype'),
+       url('../fonts/NanumGothic/NanumGothic-ExtraBold.woff2') format('woff2'),
+       url('../fonts/NanumGothic/NanumGothic-ExtraBold.woff') format('woff'),
+       url('../fonts/NanumGothic/NanumGothic-ExtraBold.ttf') format('truetype');
+}
 body
 {
     font-family: gyunggi;
@@ -15,7 +45,6 @@ a
     height: 97vh;
     position: relative;
     z-index: 1;
-    border: 1px solid silver;
 }
 #room
 {
@@ -37,7 +66,7 @@ a
     position: absolute;
     top: 0.5%;
     left: 0.5%;
-    border: 1px solid silver;
+    _border: 1px solid silver;
     z-index: 1;
 }
 #notice
@@ -57,16 +86,16 @@ a
     position: absolute;
     margin: 0.5%;
     width: 98%;
-    height: 35%;
-    border: 0.5px solid silver;
+    height: 28%;
+    _border: 0.5px solid silver;
     z-index: 1;
 }
 #player_chat
 {
-    top:35.5%;
-    margin: 0.5%;
-    width:98%;
-    height: 64%;
+    top:29%;
+    margin: 1%;
+    width:97%;
+    height:71%;
     _border: 0.5px solid silver;
     position: absolute;
     z-index: 1;
@@ -82,17 +111,6 @@ a
     z-index: 1;
     font-size: 1vw;
 }
-#message
-{
-    position: absolute;
-    width:75%;
-    top:92%;
-    margin-left:0.5%;
-    padding-top:1%;
-    padding-bottom: 1%;
-    z-index: 1;
-    font-size: 1vw;
-}
 #chat_sub
 {
     position: absolute;
@@ -104,23 +122,70 @@ a
     z-index: 1;
     font-size:1vw;
 }
+#user_area
+{
+  position: absolute;
+  width:99%;
+  padding: 0px;
+  margin: 0.5%;
+  height: 100%;
+  font-size:1.5vw;
+  z-index: 1;
+  _border: 1px solid silver;
+}
+#connect_user_div
+{
+  width:100%;
+  padding: 0px;
+  height: 15%;
+  font-size:1.5vw;
+  z-index: 1;
+  border: 1px solid silver;
+  background: #444444;
+}
 #player_list
 {
-    position: absolute;
-    width:99%;
+    width:100%;
     padding: 0px;
-    margin: 0.5%;
-    height: 88%;
-    font-size:1.5vw;
-    font-weight: bold;
-    resize: none;
+    height: 85%;
     z-index: 1;
+    border: 1px solid silver;
+    overflow-y:scroll;
+}
+.player_name
+{
+  padding-bottom: 1.5%;
+  margin-left: 2%;
+  margin-top: 1.5%;
+  width:95%;
+  height: 1.4vw;
+  _border: 1px solid #444444;
+  border-radius: 15px;
+  _background: #E8E8E8;
+  background: linear-gradient( to bottom, #D4EBFF, #A0C6EB );
+}
+.player_font
+{
+  font-size: 1.1vw;
+  margin-left: 5%;
+  _border: 1px solid #444444;
+}
+#text
+{
+    margin-left: 2.5%;
+    font-size:0.8vw;
+    font-weight: bold;
+    z-index: 1;
+    color: white;
+    font-family: 'Nanum Gothic';
 }
 .text
 {
-    font-size:1.3vw;
-    font-weight: bold;
-    z-index: 1;
+  font-size:0.8vw;
+  font-weight: bold;
+  z-index: 1;
+  color: white;
+  font-family: 'Nanum Gothic';
 }
 #player_info
 {
@@ -148,7 +213,7 @@ a
     width:98%;
     margin:0.5%;
     height: 27%;
-    border: 1px solid silver;
+    _border: 1px solid silver;
     z-index: 1;
 
 }
@@ -188,37 +253,66 @@ a
 #room_bx
 {
     width:100%;
-    height: 90%;
+    height: 93%;
     _border:1px solid red;
     z-index: 1;
     position: absolute;
     overflow: auto;
+    _background-color: silver;
 }
 #room_buttons
 {
     position: absolute;
     width:100%;
-    bottom: 1%;
+    height: 6%;
+    bottom: 0.5%;
     text-align: right;
     z-index: 1;
+    _background-color: #444444;
 }
 #room_create
 {
     margin-top:0.5%;
     margin-right: 0.5%;
     width:15%;
+    height: 75%;
     padding: 0.5%;
     z-index: 1;
     font-size:1vw;
+    font-family:'Nanum Gothic';
+    font-weight:bold;
+    background:black;
+    color:white;
+    font-weight:bold;
+    border: 0px;
+    border-radius:10px;
+}
+#room_create:hover
+{
+    background: silver;
+    cursor:pointer;
 }
 #room_ref
 {
     margin-top:0.5%;
     margin-right: 0.5%;
     width:15%;
+    height: 75%;
     padding: 0.5%;
     z-index: 1;
     font-size:1vw;
+    font-family:'Nanum Gothic';
+    font-weight:bold;
+    background:black;
+    color:white;
+    font-weight:bold;
+    border: 0px;
+    border-radius:10px;
+}
+#room_ref:hover
+{
+    background: silver;
+    cursor:pointer;
 }
 /*****************************/
 .popup {
@@ -242,7 +336,6 @@ top:50%;
 left:50%;
 transform:translate(-50%, -50%);
 box-shadow:0px 4px 6px rgba(0,0,0,1);
-border-radius:3px;
 background:#fff;
 }
 /* Close Button */
@@ -319,3 +412,159 @@ text-decoration:none;
 {
     color:red;
 }
+#ranktb1
+{
+  _border:1px solid red;
+  position: absolute;
+  width:100%;
+  z-index: 1;
+  border-collapse: collapse;
+}
+#ranktb1 td
+{
+    text-align: center;
+    z-index: 1;
+    padding: 3%;
+}
+#ranktb1 th
+{
+    _border: 1px solid blue;
+    height: 30px;
+    color:white;
+    background-color: #444444;
+    z-index: 1;
+}
+.imgsize
+{
+    width:15%;
+    height: 40%;
+}
+.boardDesign2
+{
+    border-bottom: 1px solid silver;
+}
+.boardDesign2:hover
+{
+    background-color: #e8e8e8;
+}
+#logout_btn
+{
+  width:60%;
+  height:1.5vw;
+  margin-bottom:5px;
+  font-family:'Nanum Gothic';
+  font-weight:bold;
+  background:black;
+  color:white;
+  font-weight:bold;
+  border: 0px;
+  border-radius:10px;
+}
+#logout_btn:hover
+{
+  background: silver;
+  cursor:pointer;
+}
+
+#chat_titile_div
+{
+  width:100%;
+  padding-top: 3px;
+  height: 6%;
+  font-size:1.5vw;
+  z-index: 1;
+  background: #444444;
+}
+#chat_area
+{
+  width:99.2%;
+  height:85.5%;
+  border:1px solid silver;
+  overflow-y: scroll;
+}
+#chat_titile_text
+{
+  margin-left: 3%;
+  font-size:1vw;
+  z-index: 1;
+  color: white;
+  font-family: 'BMJUA';
+}
+.chat_dl
+{
+  padding-left: 5%;
+  padding-right: 5%;
+  padding-top: 1.5%;
+  padding-bottom: 1.5%;
+  margin-left: 3%;
+  margin-top: 0.5%;
+  margin-bottom: 0.5%;
+  width:83%;
+  word-wrap: break-word;
+  border-radius: 9px;
+  background: linear-gradient( to bottom, #c2e9fb, #a1c4fd );
+}
+.chat_dl_sys
+{
+  padding-left: 5%;
+  padding-right: 5%;
+  padding-top: 1%;
+  padding-bottom: 1%;
+  margin-left: 3%;
+  margin-top: 0.5%;
+  margin-bottom: 0.5%;
+  width:83%;
+  word-wrap: break-word;
+  border-radius: 9px;
+  background: linear-gradient( to bottom, #fad0c4, #ff9a9e );
+}
+.chat_dl_me
+{
+  padding-left: 5%;
+  padding-right: 5%;
+  padding-top: 2%;
+  padding-bottom: 2%;
+  margin-left: 3%;
+  margin-top: 0.5%;
+  margin-bottom: 0.5%;
+  width:83%;
+  word-wrap: break-word;
+  border-radius: 9px;
+  background-image: linear-gradient(to top, #c4c5c7 0%, #dcdddf 52%, #ebebeb 100%);
+}
+.chat_text
+{
+  font-family: 'Nanum Gothic';
+  font-weight: bold;
+  height: 1.4vw;
+  font-size: 0.9vw;
+}
+.chat_nick_text
+{
+  margin-left: 2%;
+  font-size: 1vw;
+  font-family: 'BMJUA';
+}
+.chat_nick
+{
+  margin-left: 4%;
+  margin-top: 3%;
+  width:86%;
+  _border:1px solid red;
+}
+.chat_img
+{
+  width: 5%;
+  height: 5%;
+  border-radius:50%;
+}
+#chat_sub_div
+{
+  margin-top: 0.5%;
+  position: relative;
+  height:6%;
+  _border: 1px solid red;
+  text-align: center;
+}
+
+input:focus {outline:none;}

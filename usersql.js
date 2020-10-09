@@ -133,3 +133,11 @@ exports.ranking = function(callback){
         callback(null,result);
     });
 };
+
+exports.playgame = function(callback){
+    var q = 'SELECT * FROM game ORDER BY id DESC';
+    conn.query(q,function(err,result,field){
+        if(err){callback(true,null);}
+        callback(null,result);
+    });
+};
