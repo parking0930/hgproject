@@ -91,6 +91,12 @@ io.on('connection',function(socket){
 
 http.listen(3000, function() {
     console.log("Server Start!");
+    usersql.DeleteAllRoom(function(err){
+        if(err){throw err;}
+    });
+    usersql.RoomAIR(function(err){
+        if(err){throw err;}
+    });
   });
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(session({
@@ -445,5 +451,82 @@ app.get('/ranking',function(req,res){
     usersql.ranking(function(err,result){
         if(err) throw err;
         res.render('ranking',{rank:result});
+    });
+});
+
+
+app.get('/onlinechk/:id',function(req,res){
+    var id = req.params.id;
+    usersql.onlinecheck(id,function(err,onuser){
+        if(err) throw err;
+        if(onuser[0]['online']==1)
+        {
+            res.send({result:"1"});
+        }
+        else if(onuser[0]['online']==2)
+        {
+            res.send({result:"2"});
+        }
+        else
+        {
+            res.send({result:"0"});
+        }
+    });
+});
+
+app.get('/RefreshRoom',function(req,res){
+    usersql.playgame(function(err,board){
+        if(err){throw err;}
+        res.send(board);
+    });
+});
+
+app.post('/CreateRoom',function(req,res){
+    var title = req.body.title;
+    var player = req.body.player;
+    var creator = req.body.creator;
+    var online = req.body.online;
+    if(title!="")
+    {
+        usersql.CreateRoom(title,creator,player,online,function(err,result){
+            if(err){throw err;}
+        });
+    }
+});
+
+app.get('/readyRoom/:id',function(req,res){
+    var id = req.params.id;
+    if(req.session.user)
+    {
+        res.redirect('/');
+    }
+    else
+    {
+        res.redirect('/');
+    }
+});
+
+app.get('/checkRoom/:nick',function(req,res){
+    var nick = req.params.nick;
+    usersql.findRoom(nick,function(err,result){
+        res.send(result);
+    });
+});
+
+app.get('/deleteRoom/:id',function(req,res){
+    var id = req.params.id;
+    usersql.roomCheck(id,function(err,result){
+        if(err) throw err;
+        if(result[0]['online']==0)
+        {
+          usersql.deleteRoom(id,function(err){
+              if(err)
+              {
+                console.log("삭제 오류");
+              }
+
+          });
+        }
+
     });
 });

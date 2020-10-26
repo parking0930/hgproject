@@ -150,6 +150,43 @@
     <script src="/socket.io/socket.io.js"></script>
     <script src="//code.jquery.com/jquery-1.11.1.js"></script>
     <script>
+            function titleclick(id)
+            {
+                $.get('/onlinechk/'+id, function(data) {
+                    if(data['result']=="1")
+                    {
+                        location.replace("/readyRoom/"+id);
+                    }
+                    else if(data['result']=="0")
+                    {
+                      $.get('/deleteRoom/'+id, function() {
+
+                      });
+                      socket.emit('broadcastRoom');
+                    }
+                    else
+                    {
+                        alert("방에 입장할 수 없습니다.");
+                        RefreshRoom();
+                    }
+                });
+            }
+            function RefreshRoom()
+            {
+                $('#room_board > tbody:last > tr').empty();
+                $.get('/RefreshRoom', function(data) {
+                    for(var i in data)
+                    {
+                        var id = data[i]['id'];
+                        var title = data[i]['title'];
+                        var creator = data[i]['creator'];
+                        var player = data[i]['player'];
+                        var online = data[i]['online'];
+                        $('#room_board > tbody:last').append('<tr class="boardDesign">'+'<td>'+id+'</td>'+'<td><a class="btn" onclick="titleclick('+id+')">'+title+'</a></td>'+'<td>'+creator+'</td>'+'<td>'+online+"/"+player+'</td>'+'</tr>');
+                    }
+                });
+            }
+            RefreshRoom();
             var nick;
             var socket = io();
             socket.on();
@@ -189,7 +226,6 @@
                 $('#chat_area').scrollTop($('#chat_area')[0].scrollHeight);
               }
             });
-
             socket.on('userCount',function(cnt){
                 $('#realtime_user').html(cnt);
             });
@@ -199,6 +235,15 @@
               {
                   $('#player_list').append('<div class="player_name"><text class="player_font">· '+ u[i] +'</text></div>');
               }
+            });
+            socket.on('RoomRefresh',function(){
+                if(socket["id"])
+                {
+                    RefreshRoom();
+                }
+            });
+            socket.on('multiout',function(){
+                $('#room_board > tbody:last > tr').empty();
             });
             $('[data-popup-open]').on('click', function(e)  {
                 var targeted_popup_class = jQuery(this).attr('data-popup-open');
@@ -210,6 +255,35 @@
                 var targeted_popup_class = jQuery(this).attr('data-popup-close');
                 $('[data-popup="' + targeted_popup_class + '"]').fadeOut(350);
                 e.preventDefault();
+            });
+            $('#room_create2').click(function(){
+                if(!socket["id"])
+                {
+                    return;
+                }
+                if($('#room_name').val()!="")
+                {
+                    $.ajax({
+                    url: 'http://localhost:3000/CreateRoom',
+                    dataType: 'json',
+                    type: 'POST',
+                    data: {'title':$('#room_name').val(),'player':$('#room_player').val(),'creator':"<%=session.user%>",'online':0}
+                    });
+                    socket.emit('broadcastRoom');
+                    $.get('/checkRoom/'+"<%=session.user%>", function(data) {
+                    location.href = "/readyRoom/"+data[0]['id'];
+                    });
+                }
+                else
+                {
+                    alert("제목을 입력해주세요.");
+                }
+            });
+            $('#room_ref').click(function(){
+                if(socket["id"])
+                {
+                    RefreshRoom();
+                }
             });
             function ranking()
             {

@@ -141,3 +141,58 @@ exports.playgame = function(callback){
         callback(null,result);
     });
 };
+
+exports.onlinecheck = function(id,callback){
+    var q = 'SELECT online FROM game WHERE id="'+id+'"';
+    conn.query(q,function(err,result){
+        if(err){callback(true,null);}
+        callback(null,result);
+    });
+};
+
+exports.CreateRoom = function(title,creator,player,online,callback){
+    conn.query('insert into game (title, creator, player,online) values ("' + title + '","' + creator + '","' + player + '","' + online +'")', function(err, rows) {
+        if(err) { callback(true);}
+        console.log(creator+"님이 방을 생성하셨습니다.");
+    });
+};
+
+exports.RoomAIR = function(callback){
+    var q = 'ALTER TABLE game AUTO_INCREMENT=1';
+    conn.query(q,function(err){
+        if(err){callback(true);}
+    });
+};
+
+exports.DeleteAllRoom = function(callback){
+    var q = 'DELETE FROM game';
+    conn.query(q,function(err){
+        if(err){callback(true);}
+        console.log("Room init complete!")
+    });
+};
+
+exports.findRoom = function(nick,callback){
+    var q = 'SELECT id FROM game WHERE creator="'+nick+'"';
+    conn.query(q,function(err,result)
+    {
+        if(err){callback(true);}
+        callback(null,result);
+    });
+};
+
+exports.roomCheck = function(id,callback){
+    var q = 'SELECT online FROM game WHERE id='+id;
+    conn.query(q,function(err,result)
+    {
+        if(err){callback(true);}
+        callback(null,result);
+    });
+};
+
+exports.deleteRoom = function(id,callback){
+  var q = 'DELETE FROM game WHERE id='+id;
+  conn.query(q,function(err){
+      if(err){callback(true);}
+  });
+};
