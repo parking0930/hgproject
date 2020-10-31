@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="kr">
+<head>
+    <meta charset="UTF-8">
+    <title>HG Project - Ready Room</title>
+    <link rel="stylesheet" type="text/css" href="/readyRoomCSS.css">
+    <link rel="stylesheet" type="text/css" href="/ingame.css">
+</head>
+<body>
+    <% if(session.user){%>
+    <div id="wrap">
+        <div id="room">
+            <div id="nor">
+                <font id="norf">방 제목: <%= Roominfo[0]['title'] %></font>
+            </div>
+            <div id="player1">
+                <div id="player1_info" class="players_info">
+                </div>
+            </div>
+            <div id="player2">
+                <div id="player2_info" class="players_info">
+                </div>
+            </div>
+            <div id="player3">
+                <div id="player3_info" class="players_info">
+                </div>
+            </div>
+            <div id="player4">
+                <div id="player4_info" class="players_info">
+                </div>
+            </div>
+        </div>
+        <div id="player">
+          <div id="player_n">
+              <div id="user_area">
+                <div id="connect_user_div">
+                  <font id="text">■ 접속자 :</font>
+                  <font id="realtime_user" class="text">0</font>
+                  <font class="text">명</font>
+                </div>
+                <div id="player_list">
+
+                </div>
+              </div>
+          </div>
+          <div id="player_chat">
+            <div id="chat_titile_div">
+              <font id="chat_titile_text"># 채팅방</font>
+            </div>
+            <div id="chat_area">
+              <!-- 채팅 영역 입니다 -->
+            </div>
+            <div id="chat_sub_div">
+              <input type="text" placeholder="채팅을 입력하세요." id="message" type="text" maxlength="100" style="width:97.5%;height:98%;border:1px solid silver;">
+            </div>
+          </div>
+        </div>
+        <div id="notice">
+            <div id="player_info">
+                <div id="player_info2">
+                    <form action="/logout">
+                        <table>
+                            <tr>
+                                <td style="text-align: center">
+                                    <font class="myfont" style="font-weight: bold;"><%= session.user %>님</font>
+                                </td>
+                                <td style="text-align: right">
+                                    <input class="myfont" type="submit" value="로그아웃">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td rowspan="4">
+                                    <img src="/profile.png" style="width:100%;height: 100%; max-width: 70px; max-height: 70px;">
+                                </td>
+                                <td>
+                                    <a href="#" class="myfont">마이페이지</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <font class="myfont">포인트: <%= myresult[0]['point'] %>P</font>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <font class="myfont">전적: <%= myresult[0]['win'] %>승 <%= myresult[0]['draw'] %>무 <%= myresult[0]['lose'] %>패</font>
+                                </td>
+                            </tr>
+                        </table>
+                    </form>
+                </div>
+            </div>
+            <div id="option">
+            </div>
+            <div id="buttons">
+                <a class="btns"><img  onclick="readybtn();" src="/btn.png" style="position: absolute;width:100%;height: 55%;"></a>
+                <a href="/room"><img src="/outimg.png" style="position: absolute;width:100%;height: 40%;top:60%;"></a>
+            </div>
+        </div>
+    </div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.js"></script>
+    <script>
+        history.pushState(null, null, location.href);
+        window.onpopstate = function () {
+            history.go(1);
+        };
+        var socket = io();
+        socket.on();
+        socket.emit('joinRoom',"<%= id %>");
+        $.get('/printuser/'+"<%= session.user %>", function(printU) {
+            socket.emit('plusUser',"<%= session.user %>",printU,"<%= id %>");
+        });
+        socket.emit('OnUser2',"<%=session.user%>","<%=id%>");
+        socket.on('RefreshPP',function(){
+            refreshPP();
+        });
+        var users = [];
+        var soc = [];
+        var userprint = [];
+        var rstate = [];
+        function refreshUS(usersA,socA,printU,stateR)
+        {
+            users = usersA;
+            soc = socA;
+            userprint = printU;
+            rstate = stateR;
+            $('#player_list').empty();
+            for(var i=0;i<usersA.length;i++)
+            {
+              $('#player_list').append('<div class="player_name"><text class="player_font">· '+ usersA[i] +'</text></div>');
+            }
+            //refreshUP(printU);
+            //refreshRD(rstate);
+        }
+        function refreshPP()
+        {
+            $.get('/getRoomPP/'+"<%= id %>", function(result) {
+                $('#realtime_user').html(result['online']+"/"+result['player']);
+            });
+        }
+        function readybtn()
+        {
+            var state;
+            for(var i=0;i<users.length;i++)
+            {
+                if(users[i]=="<%=session.user%>")
+                {
+                    state = rstate[i];
+                }
+            }
+            if(state==0)
+            {
+                socket.emit('readycomp',"<%=session.user%>","<%=id%>",1);
+            }
+            else
+            {
+                socket.emit('readycomp',"<%=session.user%>","<%=id%>",0);
+            }
+        }
+        $('#message').keydown(function(key){
+            if(key.keyCode==13)
+            {
+                // 엔터키 입력 시
+                if($('#message').val()!='')
+                {
+                    socket.emit('send message2', "<%=session.user%>" , $('#message').val(),"<%=id%>");
+                    $('#message').val('');
+                    $('#message').focus();
+                }
+            }
+        });
+        $('#gmchat_message').keydown(function(key){
+            if(key.keyCode==13)
+            {
+                // 엔터키 입력 시
+                if($('#gmchat_message').val()!='')
+                {
+                    socket.emit('send message2', "<%=session.user%>" , $('#gmchat_message').val(),"<%=id%>");
+                    $('#gmchat_message').val('');
+                    $('#gmchat_message').focus();
+                }
+            }
+        });
+        socket.on('receive message2', function(msg){ //3
+          var slicing = msg.split('|');
+          var nick = slicing[0];
+          var message = slicing[1];
+          if(nick=="시스템")
+          {
+            $('#chat_area').append('<div class="chat_nick"><img src="/settings.png" class="chat_img"><font class="chat_nick_text">'+nick+'</font></div><div class="chat_dl_sys"><font class="chat_text">'+message+'</font></div>');
+            $('#chat_area').scrollTop($('#chat_area')[0].scrollHeight);
+          }
+          else if(nick=="<%= session.user %>")
+          {
+            $('#chat_area').append('<div class="chat_nick"><img src="/profile.png" class="chat_img"><font class="chat_nick_text">'+nick+'</font></div><div class="chat_dl_me"><font class="chat_text">'+message+'</font></div>');
+            $('#chat_area').scrollTop($('#chat_area')[0].scrollHeight);
+          }
+          else
+          {
+            $('#chat_area').append('<div class="chat_nick"><img src="/profile.png" class="chat_img"><font class="chat_nick_text">'+nick+'</font></div><div class="chat_dl"><font class="chat_text">'+message+'</font></div>');
+            $('#chat_area').scrollTop($('#chat_area')[0].scrollHeight);
+          }
+        });
+        socket.on('refreshUS',function(usersA,socA,printU,stateR){
+            refreshUS(usersA,socA,printU,stateR);
+        });
+        socket.on('add',function(name,so,printU){
+            users.push(name);
+            soc.push(so);
+            userprint.push(printU);
+            rstate.push(0);
+            socket.emit('sendUS',users,soc,userprint,rstate,"<%=id%>");
+        });
+    </script>
+    <% }else{ %>
+    <a href="/"><h1>로그인이 필요합니다.(이동)</h1></a>
+    <% } %>
+</body>
+</html>

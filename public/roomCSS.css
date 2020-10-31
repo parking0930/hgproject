@@ -100,17 +100,6 @@ a
     position: absolute;
     z-index: 1;
 }
-#chatLog
-{
-    position: absolute;
-    width:99%;
-    padding: 0px;
-    margin: 0.5%;
-    height: 90%;
-    resize: none;
-    z-index: 1;
-    font-size: 1vw;
-}
 #chat_sub
 {
     position: absolute;

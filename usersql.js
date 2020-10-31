@@ -196,3 +196,25 @@ exports.deleteRoom = function(id,callback){
       if(err){callback(true);}
   });
 };
+
+exports.changeFull = function(id,callback){
+    var q = 'UPDATE game SET full=1 WHERE id="'+id+'"';
+    conn.query(q,function(err,result,field){
+        if(err){callback(true);}
+    });
+};
+
+exports.roomInfo = function(id,callback){
+    var q = 'SELECT * FROM game WHERE id="'+id+'"';
+    conn.query(q,function(err,result,field){
+        if(err){callback(true,null);}
+        callback(null,result);
+    });
+};
+
+exports.onlineplus = function(id,callback){
+    var q = 'UPDATE game SET online=online+1 WHERE id="'+id+'"';
+    conn.query(q,function(err,result,field){
+        if(err){callback(true);}
+    });
+};

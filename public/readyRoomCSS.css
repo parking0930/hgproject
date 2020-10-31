@@ -1,0 +1,487 @@
+@font-face { font-family: 'gyunggi'; src: url(gyunggi.ttf) format('truetype'); }
+@font-face { font-family: 'BMJUA'; src: url('../fonts/BMJUA.ttf') format('truetype'); }
+@font-face {
+  font-family: 'Nanum Gothic';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../fonts/NanumGothic/NanumGothic-Regular.eot');
+  src: url('../fonts/NanumGothic/NanumGothic-Regular.eot?#iefix') format('embedded-opentype'),
+       url('../fonts/NanumGothic/NanumGothic-Regular.woff2') format('woff2'),
+       url('../fonts/NanumGothic/NanumGothic-Regular.woff') format('woff'),
+       url('../fonts/NanumGothic/NanumGothic-Regular.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Nanum Gothic';
+  font-style: normal;
+  font-weight: 700;
+  src: url('../fonts/NanumGothic/NanumGothic-Bold.eot');
+  src: url('../fonts/NanumGothic/NanumGothic-Bold.eot?#iefix') format('embedded-opentype'),
+       url('../fonts/NanumGothic/NanumGothic-Bold.woff2') format('woff2'),
+       url('../fonts/NanumGothic/NanumGothic-Bold.woff') format('woff'),
+       url('../fonts/NanumGothic/NanumGothic-Bold.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Nanum Gothic';
+  font-style: normal;
+  font-weight: 800;
+  src: url('../fonts/NanumGothic/NanumGothic-ExtraBold.eot');
+  src: url('../fonts/NanumGothic/NanumGothic-ExtraBold.eot?#iefix') format('embedded-opentype'),
+       url('../fonts/NanumGothic/NanumGothic-ExtraBold.woff2') format('woff2'),
+       url('../fonts/NanumGothic/NanumGothic-ExtraBold.woff') format('woff'),
+       url('../fonts/NanumGothic/NanumGothic-ExtraBold.ttf') format('truetype');
+}
+body
+{
+    font-family: gyunggi;
+    margin: 8px;
+}
+#wrap
+{
+    width: 100%;
+    height: 97vh;
+    position: relative;
+    border: 1px solid silver;
+    border-radius: 10px;
+}
+#room
+{
+    width: 58%;
+    height: 99%;
+    background-color: #FFFFFF;
+    position: absolute;
+    top: 0.5%;
+    left: 0.5%;
+    border: 1px solid silver;
+    border-radius: 10px;
+}
+#notice
+{
+    margin-left: 79%;
+    width: 20%;
+    height: 99%;
+    background-color: #FFFFFF;
+    position: absolute;
+    top: 0.5%;
+    left: 0.5%;
+    _border: 1px solid silver;
+    border-radius: 10px;
+}
+#player1
+{
+    position: absolute;
+    width: 48%;
+    margin: 1%;
+    top:4%;
+    height: 46%;
+    background-color: #f0f0f0;
+    border: 1px solid silver;
+    border-radius: 10px;
+}
+#player2
+{
+    position: absolute;
+    width: 48%;
+    left:50%;
+    top:4%;
+    margin: 1%;
+    height: 46%;
+    background-color: #f0f0f0;
+    border: 1px solid silver;
+    border-radius: 10px;
+}
+#player3
+{
+    position: absolute;
+    width: 48%;
+    top: 52%;
+    margin: 1%;
+    height: 46%;
+    background-color: #f0f0f0;
+    border: 1px solid silver;
+    border-radius: 10px;
+}
+#player4
+{
+    position: absolute;
+    width: 48%;
+    top: 52%;
+    left:50%;
+    margin: 1%;
+    height: 46%;
+    background-color: #f0f0f0;
+    border: 1px solid silver;
+    border-radius: 10px;
+}
+#player_info
+{
+    position: absolute;
+    width:98%;
+    margin:0.5%;
+    height: 20%;
+    border: 1px solid silver;
+    z-index: 1;
+    border-radius: 10px;
+}
+#player_info2
+{
+    width: 90%;
+    height: 90%;
+    margin: 2% auto 2% auto;
+    _border: 1px solid red;
+}
+.myfont
+{
+    font-size: 1vw;
+}
+#nor
+{
+    position: absolute;
+    width:70%;
+    height:4%;
+    _border: 1px solid red;
+    z-index: 2;
+    margin: 0.5%;
+}
+#norf
+{
+    position: absolute;
+    font-size: 1vw;
+    font-weight: bold;
+    margin: 0.5%;
+}
+.playerfont
+{
+    font-size: 1.4vw;
+}
+#chat_sub
+{
+    position: absolute;
+    width:23%;
+    top:92%;
+    margin-left:78%;
+    padding-top:0.5%;
+    padding-bottom: 0.5%;
+    z-index: 1;
+    font-size:1vw;
+}
+.players_info
+{
+    position: absolute;
+    width:89%;
+    margin: 0.5%;
+    height: 70%;
+    top: 15%;
+    left: 5%;
+    _border: solid 1px red;
+}
+#option
+{
+    position: absolute;
+    top:21%;
+    width:98%;
+    margin:0.5%;
+    height: 50%;
+    border: 1px solid silver;
+    z-index: 1;
+    border-radius: 10px;
+}
+#buttons
+{
+    position: absolute;
+    top:72%;
+    width:98%;
+    margin:0.5%;
+    height: 27%;
+    _border: 1px solid silver;
+    z-index: 1;
+}
+.btns
+{
+    cursor: pointer;
+}
+/*****************************/
+.popup
+{
+    width:100%;
+    height:100%;
+    display:none;
+    position:fixed;
+    top:0px;
+    left:0px;
+    background:rgba(0,0,0,0.75);
+    z-index: 100;
+}
+/* Inner */
+.popup-inner
+{
+    max-width:400px;
+    width:90%;
+    height: 20%;
+    padding:40px;
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%, -50%);
+    box-shadow:0px 4px 6px rgba(0,0,0,1);
+    border-radius:3px;
+    background:#fff;
+}
+/* Close Button */
+.popup-close
+{
+    width:30px;
+    height:30px;
+    padding-top:4px;
+    display:inline-block;
+    position:absolute;
+    top:0px;
+    right:0px;
+    transform:translate(50%, -50%);
+    border-radius:1000px;
+    background:rgba(0,0,0,0.8);
+    font-family:Arial, Sans-Serif;
+    font-size:20px;
+    text-align:center;
+    color:#fff;
+    text-decoration:none;
+}
+#popup_content
+{
+    display:inline-block;
+    position:absolute;
+    width:90%;
+    height: 70%;
+    top:5%;
+    left:5%;
+    _border: 1px solid red;
+    text-align: center;
+    margin-top: 10px;
+}
+/* Loader */
+.loader {
+    display:inline-block;
+    border: 8px solid #f3f3f3; /* Light grey */
+    border-top: 8px solid #3498db; /* Blue */
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/*  InGame */
+#InGame
+{
+    width:100%;
+    height:100%;
+    display:none;
+    position:fixed;
+    top:0px;
+    left:0px;
+    background:white;
+    z-index: 99;
+    margin: 8px;
+}
+
+#player
+{
+    margin-left: 58.5%;
+    width: 20%;
+    height: 99%;
+    background-color: #FFFFFF;
+    position: absolute;
+    top: 0.5%;
+    left: 0.5%;
+    _border: 1px solid silver;
+    z-index: 1;
+}
+#player_n
+{
+    position: absolute;
+    margin: 0.5%;
+    width: 98%;
+    height: 28%;
+    _border: 0.5px solid silver;
+    z-index: 1;
+}
+#user_area
+{
+  position: absolute;
+  width:99%;
+  padding: 0px;
+  margin: 0.5%;
+  height: 100%;
+  font-size:1.5vw;
+  z-index: 1;
+  _border: 1px solid silver;
+}
+#connect_user_div
+{
+  width:100%;
+  padding: 0px;
+  height: 15%;
+  font-size:1.5vw;
+  z-index: 1;
+  border: 1px solid silver;
+  background: #444444;
+}
+#text
+{
+    margin-left: 2.5%;
+    font-size:0.8vw;
+    font-weight: bold;
+    z-index: 1;
+    color: white;
+    font-family: 'Nanum Gothic';
+}
+.text
+{
+  font-size:0.8vw;
+  font-weight: bold;
+  z-index: 1;
+  color: white;
+  font-family: 'Nanum Gothic';
+}
+#player_list
+{
+    width:100%;
+    padding: 0px;
+    height: 85%;
+    z-index: 1;
+    border: 1px solid silver;
+    overflow-y:scroll;
+}
+#player_chat
+{
+    top:29%;
+    margin: 1%;
+    width:97%;
+    height:71%;
+    _border: 0.5px solid silver;
+    position: absolute;
+    z-index: 1;
+}
+#chat_titile_div
+{
+  width:100%;
+  padding-top: 3px;
+  height: 6%;
+  font-size:1.5vw;
+  z-index: 1;
+  background: #444444;
+}
+#chat_titile_text
+{
+  margin-left: 3%;
+  font-size:1vw;
+  z-index: 1;
+  color: white;
+  font-family: 'BMJUA';
+}
+#chat_area
+{
+  width:99.2%;
+  height:85.5%;
+  border:1px solid silver;
+  overflow-y: scroll;
+}
+.chat_dl
+{
+  padding-left: 5%;
+  padding-right: 5%;
+  padding-top: 1.5%;
+  padding-bottom: 1.5%;
+  margin-left: 3%;
+  margin-top: 0.5%;
+  margin-bottom: 0.5%;
+  width:83%;
+  word-wrap: break-word;
+  border-radius: 9px;
+  background: linear-gradient( to bottom, #c2e9fb, #a1c4fd );
+}
+.chat_dl_sys
+{
+  padding-left: 5%;
+  padding-right: 5%;
+  padding-top: 1%;
+  padding-bottom: 1%;
+  margin-left: 3%;
+  margin-top: 0.5%;
+  margin-bottom: 0.5%;
+  width:83%;
+  word-wrap: break-word;
+  border-radius: 9px;
+  background: linear-gradient( to bottom, #fad0c4, #ff9a9e );
+}
+.chat_dl_me
+{
+  padding-left: 5%;
+  padding-right: 5%;
+  padding-top: 2%;
+  padding-bottom: 2%;
+  margin-left: 3%;
+  margin-top: 0.5%;
+  margin-bottom: 0.5%;
+  width:83%;
+  word-wrap: break-word;
+  border-radius: 9px;
+  background-image: linear-gradient(to top, #c4c5c7 0%, #dcdddf 52%, #ebebeb 100%);
+}
+.chat_text
+{
+  font-family: 'Nanum Gothic';
+  font-weight: bold;
+  height: 1.4vw;
+  font-size: 0.9vw;
+}
+.chat_nick_text
+{
+  margin-left: 2%;
+  font-size: 1vw;
+  font-family: 'BMJUA';
+}
+.chat_nick
+{
+  margin-left: 4%;
+  margin-top: 3%;
+  width:86%;
+  _border:1px solid red;
+}
+.chat_img
+{
+  width: 5%;
+  height: 5%;
+  border-radius:50%;
+}
+#chat_sub_div
+{
+  margin-top: 0.5%;
+  position: relative;
+  height:6%;
+  _border: 1px solid red;
+  text-align: center;
+}
+input:focus {outline:none;}
+
+.player_name
+{
+  padding-bottom: 1.5%;
+  margin-left: 2%;
+  margin-top: 1.5%;
+  width:95%;
+  height: 1.4vw;
+  _border: 1px solid #444444;
+  border-radius: 15px;
+  _background: #E8E8E8;
+  background: linear-gradient( to bottom, #D4EBFF, #A0C6EB );
+}
+.player_font
+{
+  font-size: 1.1vw;
+  margin-left: 5%;
+  _border: 1px solid #444444;
+}

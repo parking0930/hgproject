@@ -85,6 +85,32 @@ io.on('connection',function(socket){
     socket.on('broadcastRoom',function(){
         io.sockets.in('Hello').emit('RoomRefresh');
     });
+    ////////////////////////////////////////////////////////////////////
+    /* Game Room Emit */
+    socket.on('joinRoom',function(roomId){
+        socket.join(roomId);
+        io.sockets.in(roomId).emit('RefreshPP');
+        usersql.onlineplus(roomId,function(err){
+            if(err)throw err;
+        });
+        io.emit('RoomRefresh');
+    });
+    socket.on('send message2',function(name,text,roomId){
+        if(text!="")
+        {
+            var msg = name + '|' + text;
+            io.sockets.in(roomId).emit('receive message2',msg);
+        }
+    });
+    socket.on('OnUser2',function(onUser,roomId){
+        io.sockets.in(roomId).emit('receive message2',("시스템|"+onUser+"님이 접속하셨습니다."));
+    });
+    socket.on('plusUser',function(name,printU,roomId){
+        io.sockets.in(roomId).emit('add',name,socket.id,printU);
+    });
+    socket.on('sendUS',function(users,soc,printU,stateR,roomId){
+      io.sockets.in(roomId).emit('refreshUS',users,soc,printU,stateR);
+    });
 });
 ///////////////////////////////////////////////////////////////////////
 
@@ -498,7 +524,37 @@ app.get('/readyRoom/:id',function(req,res){
     var id = req.params.id;
     if(req.session.user)
     {
-        res.redirect('/');
+        usersql.userinfo(req.session.user,function(err,myresult){
+            if(err) throw err;
+            usersql.roomInfo(id,function(err,nor){
+                if(err)throw err;
+                var i = 0;
+                for(var key in nor){
+                    i++;
+                }
+                if(i==0 || nor[0]['full']==1)
+                {
+                    res.redirect('/');
+                }
+                else
+                {
+                    usersql.onlinecheck(id,function(err,onuser){
+                        if(err)throw err;
+                        if(onuser[0]['online']==0)
+                        {
+                            res.render('readyRoom',{session:req.session,myresult:myresult,id:id,Roominfo:nor,Maker:1});
+                        }
+                        else if(onuser[0]['online']==1)
+                        {
+                            usersql.changeFull(id,function(err){
+                                if(err)throw err;
+                            });
+                            res.render('readyRoom',{session:req.session,myresult:myresult,id:id,Roominfo:nor,Maker:0});
+                        }
+                    });
+                }
+            });
+        });
     }
     else
     {
@@ -528,5 +584,21 @@ app.get('/deleteRoom/:id',function(req,res){
           });
         }
 
+    });
+});
+
+app.get('/getRoomPP/:id',function(req,res){
+    var id = req.params.id;
+    usersql.roomInfo(id,function(err,result){
+        if(err){throw err;}
+        res.send(result[0]);
+    });
+});
+
+app.get('/printuser/:id',function(req,res){
+    var id = req.params.id;
+    usersql.userinfo(id,function(err,result){
+        if(err)throw err;
+        res.send(result[0]);
     });
 });
