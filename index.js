@@ -111,6 +111,31 @@ io.on('connection',function(socket){
     socket.on('sendUS',function(users,soc,printU,stateR,roomId){
       io.sockets.in(roomId).emit('refreshUS',users,soc,printU,stateR);
     });
+
+    socket.on('bye',function(roomId){
+        usersql.deleteRoom(roomId,function(err){
+            if(err)throw err;
+        });
+        io.emit('RoomRefresh');
+    });
+    socket.on('sqlRe',function(roomId){
+        usersql.onlineminus(roomId,function(err){
+            if(err)throw err;
+        });
+        io.sockets.in(roomId).emit('RefreshPP');
+    });
+    socket.on('readycomp',function(name,roomId,state){
+        io.sockets.in(roomId).emit('readyplus',name,state);
+    });
+    socket.on('refreshRD',function(stateR,roomId){
+        io.sockets.in(roomId).emit('RDrefresh',stateR);
+    });
+    socket.on('userout',function(name,roomId){
+        io.sockets.in(roomId).emit('Uout',name);
+    });
+    socket.on('CancelST',function(roomId){
+        socket.broadcast.to(roomId).emit('CanceledST');
+    });
 });
 ///////////////////////////////////////////////////////////////////////
 

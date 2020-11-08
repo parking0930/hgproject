@@ -218,3 +218,18 @@ exports.onlineplus = function(id,callback){
         if(err){callback(true);}
     });
 };
+
+
+exports.deleteRoom = function(id,callback){
+    var q = 'DELETE FROM game WHERE id="'+id+'"';
+    conn.query(q,function(err,result,field){
+        if(err){callback(true);}
+    });
+};
+
+exports.onlineminus = function(id,callback){
+    var q = 'UPDATE game SET online=online-1,full=0 WHERE id="'+id+'"';
+    conn.query(q,function(err,result,field){
+        if(err){callback(true);}
+    });
+};

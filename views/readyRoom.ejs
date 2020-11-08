@@ -8,6 +8,16 @@
 </head>
 <body>
     <% if(session.user){%>
+    <div class="popup" data-popup="popup-1">
+        <div class="popup-inner">
+            <div id="popup_content">
+                <font id="counter" style="font-weight: bold;font-size: 20px;">?</font>
+                <font style="font-weight: bold;font-size: 20px;">초 후 게임이 시작됩니다.</font><br><br>
+                <div class="loader"></div><br><br>
+                <input type="button" value="취소" onclick="closewindow();" style="width:80%;height:20%;">
+            </div>
+        </div>
+    </div>
     <div id="wrap">
         <div id="room">
             <div id="nor">
@@ -70,7 +80,7 @@
                             </tr>
                             <tr>
                                 <td rowspan="4">
-                                    <img src="/profile.png" style="width:100%;height: 100%; max-width: 70px; max-height: 70px;">
+                                    <img src="/profile.png" style="width:100%;height: 100%; max-width: 70px; max-height: 70px;border-radius:50%;">
                                 </td>
                                 <td>
                                     <a href="#" class="myfont">마이페이지</a>
@@ -115,6 +125,8 @@
         socket.on('RefreshPP',function(){
             refreshPP();
         });
+
+        var TimeId;
         var users = [];
         var soc = [];
         var userprint = [];
@@ -130,14 +142,52 @@
             {
               $('#player_list').append('<div class="player_name"><text class="player_font">· '+ usersA[i] +'</text></div>');
             }
-            //refreshUP(printU);
-            //refreshRD(rstate);
+            refreshUP();
+            refreshRD();
         }
-        function refreshPP()
+        function refreshUP()
         {
-            $.get('/getRoomPP/'+"<%= id %>", function(result) {
-                $('#realtime_user').html(result['online']+"/"+result['player']);
-            });
+            $('#player1_info').empty();
+            $('#player2_info').empty();
+            $('#player3_info').empty();
+            $('#player4_info').empty();
+            $('#player1_info').hide();
+            $('#player2_info').hide();
+            $('#player3_info').hide();
+            $('#player4_info').hide();
+            for(var i=0;i<userprint.length;i++)
+            {
+                if(i==0)
+                {
+                    $('#player'+(i+1)+'_info').append(`<table><tr><td rowspan="2"><img src="/profile.png" style="width:100%;height: 100%; max-width: 120px; max-height: 120px;border-radius:50%;"></td><td><font class="playerfont">`+users[i]+`님 (방장)</font></td></tr><tr><td><font class="playerfont">전적: `+ userprint[i]['win'] +`승 ` + userprint[i]['draw'] + `무 `+ userprint[i]['lose'] + `패 </font></td></tr></table><img id="prepared`+(i+1)+`" src="/prepare.png" style="position:absolute;width:100%;height:40%;"></img>`);
+                    $('#player'+(i+1)+'_info').show();
+                }
+                else
+                {
+                    $('#player'+(i+1)+'_info').append(`<table><tr><td rowspan="2"><img src="/profile.png" style="width:100%;height: 100%; max-width: 120px; max-height: 120px;border-radius:50%;"></td><td><font class="playerfont">`+users[i]+`님</font><% if(Maker==1){ %><input type="button" onclick="userout('`+users[i]+`');" value="강퇴"></input><% } %></td></tr><tr><td><font class="playerfont">전적: `+ userprint[i]['win'] +`승 ` + userprint[i]['draw'] + `무 `+ userprint[i]['lose'] + `패 </font></td></tr></table><img id="prepared`+(i+1)+`" src="/prepare.png" style="position:absolute;width:100%;height:40%;"></img>`);
+                    $('#player'+(i+1)+'_info').show();
+                }
+            }
+        }
+        function refreshRD()
+        {
+            var c = 0;
+            for(var i=0;i<rstate.length;i++)
+            {
+                if(rstate[i]==1)
+                {
+                    $('#prepared'+(i+1)).attr("src","/complete.png");
+                    c += 1;
+                }
+                else
+                {
+                    $('#prepared'+(i+1)).attr("src","/prepare.png");
+                }
+            }
+            if(c==2)
+            {
+                AllReady();
+            }
         }
         function readybtn()
         {
@@ -149,14 +199,13 @@
                     state = rstate[i];
                 }
             }
-            if(state==0)
-            {
-                socket.emit('readycomp',"<%=session.user%>","<%=id%>",1);
-            }
-            else
-            {
-                socket.emit('readycomp',"<%=session.user%>","<%=id%>",0);
-            }
+            socket.emit('readycomp',"<%=session.user%>","<%=id%>",state==0 ? 1:0);
+        }
+        function refreshPP()
+        {
+            $.get('/getRoomPP/'+"<%= id %>", function(result) {
+                $('#realtime_user').html(result['online']+"/"+result['player']);
+            });
         }
         $('#message').keydown(function(key){
             if(key.keyCode==13)
@@ -205,13 +254,103 @@
         socket.on('refreshUS',function(usersA,socA,printU,stateR){
             refreshUS(usersA,socA,printU,stateR);
         });
+        socket.on('disAll',function(s){
+            for(var i=0;i<soc.length;i++)
+            {
+                if(soc[i]==s && "<%=Maker%>"=="0")
+                {
+                    socket.emit('bye',"<%=id%>");
+                    location.href = "/room";
+                }
+            }
+        });
+        socket.on('roomout',function(s){
+            for(var i=0;i<soc.length;i++)
+            {
+                if(soc[i]==s)
+                {
+                    users.splice(i,1);
+                    soc.splice(i,1);
+                    userprint.splice(i,1);
+                    rstate.splice(i,1);
+                    refreshUS(users,soc,userprint,rstate);
+                    socket.emit('sqlRe',"<%=id%>");
+                }
+            }
+        });
+        socket.on('RDrefresh',function(stateR){
+            rstate = stateR;
+            refreshRD();
+        });
+        socket.on('CanceledST',function(){
+            clearTimeout(TimeId);
+            $('[data-popup="popup-1"]').fadeOut(350);
+        });
+        <% if(Maker==1){ %>
         socket.on('add',function(name,so,printU){
             users.push(name);
             soc.push(so);
             userprint.push(printU);
             rstate.push(0);
             socket.emit('sendUS',users,soc,userprint,rstate,"<%=id%>");
+            refreshUS(users,soc,userprint,rstate);
         });
+        socket.on('readyplus',function(name,state){
+            for(var i=0;i<users.length;i++)
+            {
+                if(users[i]==name)
+                {
+                    rstate[i] = state;
+                }
+            }
+            socket.emit('refreshRD',rstate,"<%=id%>");
+        });
+        function userout(name)
+        {
+            socket.emit('userout',name,"<%=id%>");
+        }
+        <% }else{ %>
+        socket.on('refreshUS',function(usersA,socA,printU,stateR){
+            refreshUS(usersA,socA,printU,stateR);
+        });
+        socket.on('Uout',function(name){
+            if(name=="<%=session.user%>")
+            {
+                location.href = "/room";
+            }
+        });
+        <% } %>
+        function openwindow()
+        {
+            $('[data-popup="popup-1"]').fadeIn(350);
+        }
+        function closewindow()
+        {
+            $('[data-popup="popup-1"]').fadeOut(350);
+            clearTimeout(TimeId);
+            socket.emit('CancelST',"<%=id%>");
+            readybtn();
+        }
+        function AllReady()
+        {
+            openwindow();
+            var cnt = 5;
+            $('#counter').html(cnt);
+            TimeId = setTimeout("mcount("+cnt+")",1000);
+        }
+        function mcount(cnt)
+        {
+            cnt -= 1;
+            if(cnt!=0)
+            {
+                $('#counter').html(cnt);
+                TimeId = setTimeout("mcount("+cnt+")",1000);
+            }
+            else
+            {
+                // 카운트 이후 동작을 정의할 곳
+            }
+        }
     </script>
     <% }else{ %>
     <a href="/"><h1>로그인이 필요합니다.(이동)</h1></a>
