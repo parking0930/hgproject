@@ -8,6 +8,101 @@
 </head>
 <body>
     <% if(session.user){%>
+      <!-- /////////// InGame Area /////////// -->
+      <div class="popup" data-popup="popup-4">
+          <div class="popup-inner">
+              <div id="popup_content">
+                  <font style="font-weight: bold;font-size: 40px;">축하합니다!</font><br><br>
+                  <font style="font-weight: bold;font-size: 17px;">게임에서 승리하여 100포인트가 적립되었습니다.</font><br><br>
+                  <input type="button" value="확인" onclick="win();" style="width:50%;height:20%;"><br>
+                  <font style="font-size:10px;color:red;font-weight:bold;"><주의> 확인을 누른 후 접속을 종료해야 포인트가 지급됩니다.</font>
+              </div>
+          </div>
+      </div>
+      <div class="popup" data-popup="popup-3">
+          <div class="popup-inner">
+              <div id="popup_content">
+                  <font style="font-weight: bold;font-size: 40px;">아쉬워요..ㅠㅠ</font><br><br>
+                  <font style="font-weight: bold;font-size: 17px;">게임에서 패배하였습니다.</font><br>
+                  <font style="font-weight: bold;font-size: 17px;">위로의 의미로 20포인트를 적립해드렸어요!</font><br>
+                  <input type="button" value="확인" onclick="lose();" style="width:50%;height:20%;"><br>
+                  <font style="font-size:10px;color:red;font-weight:bold;"><주의> 확인을 누른 후 접속을 종료해야 포인트가 지급됩니다.</font>
+              </div>
+          </div>
+      </div>
+      <div class="popup" data-popup="popup-2">
+          <div class="popup-inner">
+              <div id="popup_content">
+                  <font style="font-weight: bold;font-size: 20px;">순서 정하기</font><br><br>
+                  <font style="font-size: 20px;" id="problem"></font><br><br>
+                  <input type="text" id="ordans" placeholder="여기에 답을 입력하세요.">
+                  <input type="button" value="확인" onclick="ordercheck();" style="width:80%;height:20%;"><br>
+                  <font style="font-size:10px;color:red;font-weight:bold;"><주의> 상대보다 느리게 확인 또는 답이 틀릴 시 마지막 순서로 배정됩니다.</font>
+              </div>
+          </div>
+      </div>
+      <div id="InGame">
+          <div id="gmwrap">
+              <div id="gmnotice">
+                  <div id="gmnotice_layout">
+                      <font id="NameOfTurn" class="timefont">?</font>
+                      <font class="timefont">님의 턴 입니다.</font><br><br>
+                      <font class="timefont">턴 종료까지 남은시간</font><br>
+                      <font id="TimeOfTurn" class="ntfonts">-분 -초</font>
+                  </div>
+              </div>
+              <div id="bell">
+                  <img class="imagefull" src="/bell.png">
+              </div>
+              <div id="you_info">
+                  <!-- You Info Area -->
+                  <div id="you_info2">
+
+                  </div>
+              </div>
+              <div id="you_card_area">
+                  <div id="you_hidden_card">
+                      <img class="imagefull" src="/cards/redb.png">
+                  </div>
+                  <div id="you_last_card">
+                      <img id="yl_card" class="imagefull" src="/cards/emptycard.png">
+                  </div>
+              </div>
+              <div id="my_info">
+                  <!-- My Info Area -->
+                  <div id="my_info2">
+
+                  </div>
+              </div>
+              <div id="my_card_area">
+                  <div id="my_last_card">
+                      <img id="ml_card" class="imagefull" src="/cards/emptycard.png">
+                  </div>
+                  <div id="my_hidden_card">
+                      <img class="imagefull" src="/cards/blueb.png">
+                  </div>
+              </div>
+              <div id="timer">
+                  <div id="timer_layout">
+                      <text class="timefont">남은 시간</text><br>
+                      <text class="timefont" id="gmtime">-분 -초</text>
+                  </div>
+              </div>
+              <div id="gmbtns">
+                  <!-- 수정 필요 -->
+                  <img class="imagefull btns" src="/Xbtn.png" onclick="showRoom();">
+              </div>
+              <div id="gmchat">
+                  <input id="gmchaton" type="button" value="채팅창 열기" onclick="gmchaton();">
+              </div>
+              <div id="gmchat_layout">
+                  <textarea id="gmchat_log" readonly></textarea>
+                  <input id="gmchat_message" type="text" maxlength="100">
+                  <input id="gmchat_sub" type="button" value="보내기"/>
+              </div>
+          </div>
+      </div>
+      <!-- /////////////////////////////////////////////////////// -->
     <div class="popup" data-popup="popup-1">
         <div class="popup-inner">
             <div id="popup_content">
@@ -349,7 +444,26 @@
             else
             {
                 // 카운트 이후 동작을 정의할 곳
+                showGame();
             }
+        }
+        function showGame()
+        {
+            $('#wrap').fadeOut(500);
+            $('[data-popup="popup-1"]').fadeOut(500);
+            $('#InGame').fadeIn(500);
+            readybtn();
+            //usersSet();
+            //socket.emit('setProblem',"<%=id%>");
+        }
+        function showRoom()
+        {
+            $('[data-popup="popup-3"]').fadeOut(500);
+            $('[data-popup="popup-4"]').fadeOut(500);
+            $('#InGame').fadeOut(500);
+            $('#wrap').fadeIn(500);
+            clearInterval(IntTimeId);
+            initializeSet();
         }
     </script>
     <% }else{ %>
