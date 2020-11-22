@@ -8,101 +8,101 @@
 </head>
 <body>
     <% if(session.user){%>
-      <!-- /////////// InGame Area /////////// -->
-      <div class="popup" data-popup="popup-4">
-          <div class="popup-inner">
-              <div id="popup_content">
-                  <font style="font-weight: bold;font-size: 40px;">축하합니다!</font><br><br>
-                  <font style="font-weight: bold;font-size: 17px;">게임에서 승리하여 100포인트가 적립되었습니다.</font><br><br>
-                  <input type="button" value="확인" onclick="win();" style="width:50%;height:20%;"><br>
-                  <font style="font-size:10px;color:red;font-weight:bold;"><주의> 확인을 누른 후 접속을 종료해야 포인트가 지급됩니다.</font>
-              </div>
-          </div>
-      </div>
-      <div class="popup" data-popup="popup-3">
-          <div class="popup-inner">
-              <div id="popup_content">
-                  <font style="font-weight: bold;font-size: 40px;">아쉬워요..ㅠㅠ</font><br><br>
-                  <font style="font-weight: bold;font-size: 17px;">게임에서 패배하였습니다.</font><br>
-                  <font style="font-weight: bold;font-size: 17px;">위로의 의미로 20포인트를 적립해드렸어요!</font><br>
-                  <input type="button" value="확인" onclick="lose();" style="width:50%;height:20%;"><br>
-                  <font style="font-size:10px;color:red;font-weight:bold;"><주의> 확인을 누른 후 접속을 종료해야 포인트가 지급됩니다.</font>
-              </div>
-          </div>
-      </div>
-      <div class="popup" data-popup="popup-2">
-          <div class="popup-inner">
-              <div id="popup_content">
-                  <font style="font-weight: bold;font-size: 20px;">순서 정하기</font><br><br>
-                  <font style="font-size: 20px;" id="problem"></font><br><br>
-                  <input type="text" id="ordans" placeholder="여기에 답을 입력하세요.">
-                  <input type="button" value="확인" onclick="ordercheck();" style="width:80%;height:20%;"><br>
-                  <font style="font-size:10px;color:red;font-weight:bold;"><주의> 상대보다 느리게 확인 또는 답이 틀릴 시 마지막 순서로 배정됩니다.</font>
-              </div>
-          </div>
-      </div>
-      <div id="InGame">
-          <div id="gmwrap">
-              <div id="gmnotice">
-                  <div id="gmnotice_layout">
-                      <font id="NameOfTurn" class="timefont">?</font>
-                      <font class="timefont">님의 턴 입니다.</font><br><br>
-                      <font class="timefont">턴 종료까지 남은시간</font><br>
-                      <font id="TimeOfTurn" class="ntfonts">-분 -초</font>
-                  </div>
-              </div>
-              <div id="bell">
-                  <img class="imagefull" src="/bell.png">
-              </div>
-              <div id="you_info">
-                  <!-- You Info Area -->
-                  <div id="you_info2">
+    <!-- /////////// InGame Area /////////// -->
+    <div class="popup" data-popup="popup-4">
+        <div class="popup-inner">
+            <div id="popup_content">
+                <font style="font-weight: bold;font-size: 40px;">축하합니다!</font><br><br>
+                <font style="font-weight: bold;font-size: 17px;">게임에서 승리하여 100포인트가 적립되었습니다.</font><br><br>
+                <input type="button" value="확인" onclick="win();" style="width:50%;height:20%;"><br>
+                <font style="font-size:10px;color:red;font-weight:bold;"><주의> 확인을 누른 후 접속을 종료해야 포인트가 지급됩니다.</font>
+            </div>
+        </div>
+    </div>
+    <div class="popup" data-popup="popup-3">
+        <div class="popup-inner">
+            <div id="popup_content">
+                <font style="font-weight: bold;font-size: 40px;">아쉬워요..ㅠㅠ</font><br><br>
+                <font style="font-weight: bold;font-size: 17px;">게임에서 패배하였습니다.</font><br>
+                <font style="font-weight: bold;font-size: 17px;">위로의 의미로 20포인트를 적립해드렸어요!</font><br>
+                <input type="button" value="확인" onclick="lose();" style="width:50%;height:20%;"><br>
+                <font style="font-size:10px;color:red;font-weight:bold;"><주의> 확인을 누른 후 접속을 종료해야 포인트가 지급됩니다.</font>
+            </div>
+        </div>
+    </div>
+    <div class="popup" data-popup="popup-2">
+        <div class="popup-inner">
+            <div id="popup_content">
+                <font style="font-weight: bold;font-size: 20px;">순서 정하기</font><br><br>
+                <font style="font-size: 20px;" id="problem"></font><br><br>
+                <input type="text" id="ordans" placeholder="여기에 답을 입력하세요.">
+                <input type="button" value="확인" onclick="ordercheck();" style="width:80%;height:20%;"><br>
+                <font style="font-size:10px;color:red;font-weight:bold;"><주의> 상대보다 느리게 확인 또는 답이 틀릴 시 마지막 순서로 배정됩니다.</font>
+            </div>
+        </div>
+    </div>
+    <div id="InGame">
+        <div id="gmwrap">
+            <div id="gmnotice">
+                <div id="gmnotice_layout">
+                    <font id="NameOfTurn" class="timefont">?</font>
+                    <font class="timefont">님의 턴 입니다.</font><br><br>
+                    <font class="timefont">턴 종료까지 남은시간</font><br>
+                    <font id="TimeOfTurn" class="ntfonts">-분 -초</font>
+                </div>
+            </div>
+            <div id="bell">
+                <img class="imagefull" src="/bell.png">
+            </div>
+            <div id="you_info">
+                <!-- You Info Area -->
+                <div id="you_info2">
 
-                  </div>
-              </div>
-              <div id="you_card_area">
-                  <div id="you_hidden_card">
-                      <img class="imagefull" src="/cards/redb.png">
-                  </div>
-                  <div id="you_last_card">
-                      <img id="yl_card" class="imagefull" src="/cards/emptycard.png">
-                  </div>
-              </div>
-              <div id="my_info">
-                  <!-- My Info Area -->
-                  <div id="my_info2">
+                </div>
+            </div>
+            <div id="you_card_area">
+                <div id="you_hidden_card">
+                    <img class="imagefull" src="/cards/redb.png">
+                </div>
+                <div id="you_last_card">
+                    <img id="yl_card" class="imagefull" src="/cards/emptycard.png">
+                </div>
+            </div>
+            <div id="my_info">
+                <!-- My Info Area -->
+                <div id="my_info2">
 
-                  </div>
-              </div>
-              <div id="my_card_area">
-                  <div id="my_last_card">
-                      <img id="ml_card" class="imagefull" src="/cards/emptycard.png">
-                  </div>
-                  <div id="my_hidden_card">
-                      <img class="imagefull" src="/cards/blueb.png">
-                  </div>
-              </div>
-              <div id="timer">
-                  <div id="timer_layout">
-                      <text class="timefont">남은 시간</text><br>
-                      <text class="timefont" id="gmtime">-분 -초</text>
-                  </div>
-              </div>
-              <div id="gmbtns">
-                  <!-- 수정 필요 -->
-                  <img class="imagefull btns" src="/Xbtn.png" onclick="showRoom();">
-              </div>
-              <div id="gmchat">
-                  <input id="gmchaton" type="button" value="채팅창 열기" onclick="gmchaton();">
-              </div>
-              <div id="gmchat_layout">
-                  <textarea id="gmchat_log" readonly></textarea>
-                  <input id="gmchat_message" type="text" maxlength="100">
-                  <input id="gmchat_sub" type="button" value="보내기"/>
-              </div>
-          </div>
-      </div>
-      <!-- /////////////////////////////////////////////////////// -->
+                </div>
+            </div>
+            <div id="my_card_area">
+                <div id="my_last_card">
+                    <img id="ml_card" class="imagefull" src="/cards/emptycard.png">
+                </div>
+                <div id="my_hidden_card">
+                    <img class="imagefull" src="/cards/blueb.png">
+                </div>
+            </div>
+            <div id="timer">
+                <div id="timer_layout">
+                    <text class="timefont">남은 시간</text><br>
+                    <text class="timefont" id="gmtime">-분 -초</text>
+                </div>
+            </div>
+            <div id="gmbtns">
+                <!-- 수정 필요 -->
+                <img class="imagefull btns" src="/Xbtn.png" onclick="showRoom();">
+            </div>
+            <div id="gmchat">
+                <input id="gmchaton" type="button" value="채팅창 열기" onclick="gmchaton();">
+            </div>
+            <div id="gmchat_layout">
+                <textarea id="gmchat_log" readonly></textarea>
+                <input id="gmchat_message" type="text" maxlength="100">
+                <input id="gmchat_sub" type="button" value="보내기"/>
+            </div>
+        </div>
+    </div>
+    <!-- /////////////////////////////////////////////////////// -->
     <div class="popup" data-popup="popup-1">
         <div class="popup-inner">
             <div id="popup_content">
@@ -222,6 +222,15 @@
         });
 
         var TimeId;
+        var IntTimeId;
+        var TurnTimeId;
+        var calre;
+        var myorder;
+        var mycards = [];
+        var youcards = 15;
+        var othercards = [];
+        var tstate = -1;
+        var temp =0;
         var users = [];
         var soc = [];
         var userprint = [];
@@ -453,8 +462,8 @@
             $('[data-popup="popup-1"]').fadeOut(500);
             $('#InGame').fadeIn(500);
             readybtn();
-            //usersSet();
-            //socket.emit('setProblem',"<%=id%>");
+            usersSet();
+            socket.emit('setProblem',"<%=id%>");
         }
         function showRoom()
         {
@@ -465,6 +474,370 @@
             clearInterval(IntTimeId);
             initializeSet();
         }
+        function usersSet()
+        {
+            <% if(Maker == 1){ %>
+            $('#my_info2').html(`<table><tr><td rowspan=4><img src="/profile.png" style="width:100%;height: 100%; max-width: 70px; max-height: 70px;border-radius:50%;"></td><td></tr><tr><td><font class="myfont" style="font-weight: bold;">`+users[0]+`님</font></td></tr><tr><td><font class="myfont">카드 수: </font><font id="mycd" class="myfont"></font></td></tr></table>`);
+            $('#you_info2').html(`<table><tr><td rowspan=4><img src="/profile.png" style="width:100%;height: 100%; max-width: 70px; max-height: 70px;border-radius:50%;"></td><td></tr><tr><td><font class="myfont" style="font-weight: bold;">`+users[1]+`님</font></td></tr><tr><td><font class="myfont">카드 수: </font><font id="youcd" class="myfont"></font></td></tr></table>`);
+            <% }else{ %>
+            $('#my_info2').html(`<table><tr><td rowspan=4><img src="/profile.png" style="width:100%;height: 100%; max-width: 70px; max-height: 70px;border-radius:50%;"></td><td></tr><tr><td><font class="myfont" style="font-weight: bold;">`+users[1]+`님</font></td></tr><tr><td><font class="myfont">카드 수: </font><font id="mycd" class="myfont"></font></td></tr></table>`);
+            $('#you_info2').html(`<table><tr><td rowspan=4><img src="/profile.png" style="width:100%;height: 100%; max-width: 70px; max-height: 70px;border-radius:50%;"></td><td></tr><tr><td><font class="myfont" style="font-weight: bold;">`+users[0]+`님</font></td></tr><tr><td><font class="myfont">카드 수: </font><font id="youcd" class="myfont"></font></td></tr></table>`);
+            <% } %>
+        }
+        function orderSelect()
+        {
+            $('[data-popup="popup-2"]').fadeIn(500);
+        }
+        function ordercheck()
+        {
+            socket.emit('setAns',$('#ordans').val(),calre,"<%=session.user%>","<%=id%>");
+        }
+        socket.on('getProblem',function(x,y,re){
+            $('#ordans').val("");
+            $('#problem').html(x.toString()+"*"+y.toString()+"= ?");
+            calre = re;
+            orderSelect();
+        });
+        socket.on('settingGame',function(name,st){
+            socket.emit('shuffleCards',"<%=id%>");
+            if(name=="<%=session.user%>")
+            {
+                if(st==1)
+                {
+                    myorder = 1;
+                }
+                else
+                {
+                    myorder = 0;
+                }
+            }
+            else
+            {
+                if(st==1)
+                {
+                    myorder = 0;
+                }
+                else
+                {
+                    myorder = 1;
+                }
+            }
+            turnchange();
+            closeOrder();
+            GmTimerOn();
+        });
+        socket.on('compshuffle',function(u1,u2){
+            if(myorder==1)
+            {
+                mycards = u1;
+            }
+            else
+            {
+                mycards = u2;
+            }
+            refreshCard();
+        });
+        function refreshCard()
+        {
+            $('#mycd').html(mycards.length);
+            $('#youcd').html(youcards);
+            if(temp>0)
+            {
+                if(youcards==0 && mycards.length>0)
+                {
+                    initializeSet();
+                    $('[data-popup="popup-4"]').fadeIn(500);
+                    return;
+                }
+                if(mycards.length == 0 && youcards>0)
+                {
+                    initializeSet();
+                    $('[data-popup="popup-3"]').fadeIn(500);
+                    return;
+                }
+            }
+        }
+        function initializeSet()
+        {
+            $('#my_info').css("border","2px solid silver");
+            $('#you_info').css("border","2px solid silver");
+            $('#gmtime').html("-분 -초");
+            $('#gmnotice').fadeOut(500);
+            $('#my_hidden_card').html(`<img class="imagefull" src="/cards/blueb.png">`);
+            $('#my_last_card').html(`<img id="ml_card" class="imagefull" src="/cards/emptycard.png">`);
+            $('#you_last_card').html(`<img id="yl_card" class="imagefull" src="/cards/emptycard.png">`);
+            if($('#gmchaton').val()=="채팅창 닫기")
+            {
+                $('#gmchat_layout').fadeOut(500);
+                $('#gmchaton').val('채팅창 열기');
+            }
+            youcards = 15;
+            tstate = -1;
+            temp = 0;
+            othercards = [];
+            clearInterval(TurnTimeId);
+            clearInterval(IntTimeId);
+        }
+        function turnchange()
+        {
+            temp += 1;
+            tstate = (tstate+1)%4;
+            turnhide();
+            if(tstate==0)
+            {
+                if(myorder==0)
+                {
+                    //대기
+                    <% if(Maker==1){ %>
+                    turnshow(users[1]);
+                    <% }else{ %>
+                    turnshow(users[0]);
+                    <% } %>
+                    yourturn();
+                }
+                else
+                {
+                    <% if(Maker==1){ %>
+                    turnshow(users[0]);
+                    <% }else{ %>
+                    turnshow(users[1]);
+                    <% } %>
+                    myturn();
+                }
+            }
+            else if(tstate==1)
+            {
+                turnshow("bell");
+            }
+            else if(tstate==2)
+            {
+                if(myorder==1)
+                {
+                    <% if(Maker==1){ %>
+                    turnshow(users[1]);
+                    <% }else{ %>
+                    turnshow(users[0]);
+                    <% } %>
+                    yourturn();
+                }
+                else
+                {
+                    <% if(Maker==1){ %>
+                    turnshow(users[0]);
+                    <% }else{ %>
+                    turnshow(users[1]);
+                    <% } %>
+                    myturn();
+                }
+            }
+            else if(tstate==3)
+            {
+                turnshow("bell");
+            }
+            else
+            {
+                alert("error...");
+            }
+        }
+        function turntimer()
+        {
+            var tc;
+            if(tstate == 1 || tstate == 3)
+            {
+                tc = 3;
+                $('#TimeOfTurn').html("3초");
+            }
+            else
+            {
+                tc = 30;
+                $('#TimeOfTurn').html("30초");
+            }
+            TurnTimeId = setInterval(function(){
+                tc -= 1;
+                $('#TimeOfTurn').html(tc + " 초");
+                if(tc == 0)
+                {
+                    clearInterval(TurnTimeId);
+                    if(tstate == 1 || tstate == 3)
+                    {
+                        turnchange();
+                    }
+                    else
+                    {
+                        if($('#mcard').attr("src")=="/cards/blueb2.png")
+                        {
+                            clickmyCard();
+                        }
+                    }
+                }
+                if((youcards==0 && mycards.length>0)||(mycards.length == 0 && youcards>0))
+                {
+                    turnhide();
+                }
+            },1000);
+        }
+        function clickmyCard()
+        {
+            var selected = mycards[0];
+            mycards.splice(0,1);
+            $('#my_last_card').html(`<img id="ml_card" class="imagefull" src="/cards/`+selected+`.png">`);
+            socket.emit('cardClick',"<%=session.user%>",selected,"<%=id%>")
+        }
+        function turnhide()
+        {
+            $('#gmnotice').fadeOut(500);
+            clearInterval(TurnTimeId);
+        }
+        function turnshow(name)
+        {
+            turntimer();
+            $('#NameOfTurn').html(name);
+            $('#gmnotice').fadeIn(500);
+            if(tstate!=1 && tstate!=3)
+            {
+                if("<%= session.user %>" == name)
+                {
+                    $('#my_hidden_card').html(`<img id="mcard" onclick="clickmyCard();" class="imagefull" src="/cards/blueb2.png">`);
+                    $('#bell').html(`<img class="imagefull" src="/bell.png">`);
+                }
+                else
+                {
+                    $('#my_hidden_card').html(`<img class="imagefull" src="/cards/blueb.png">`);
+                    $('#bell').html(`<img class="imagefull" src="/bell.png">`);
+                }
+            }
+            else if(tstate == 1 || tstate == 3)
+            {
+                $('#my_hidden_card').html(`<img class="imagefull" src="/cards/blueb.png">`);
+                $('#bell').html(`<img id="bellmv" onclick="bellClick();" class="imagefull" src="/bell2.png">`);
+                $('#my_info').css("border","2px solid silver");
+                $('#you_info').css("border","2px solid silver");
+            }
+            else
+            {
+                alert('error...');
+            }
+        }
+        function myturn()
+        {
+            $('#my_info').css("border","2px solid #ff8e8e");
+            $('#you_info').css("border","2px solid silver");
+        }
+        function yourturn()
+        {
+            $('#my_info').css("border","2px solid silver");
+            $('#you_info').css("border","2px solid #ff8e8e");
+        }
+        function closeOrder()
+        {
+            $('[data-popup="popup-2"]').fadeOut(500);
+        }
+        function GmTimerOn()
+        {
+            var sec = 1200;
+            $('#gmtime').html('20분 0초');
+            IntTimeId = setInterval(function(){
+                sec -= 1;
+                var m = parseInt(sec / 60);
+                var s = parseInt(sec % 60);
+                $('#gmtime').html(m+'분 '+s+'초');
+                if(sec==0)
+                {
+                    // 시간 종료시...(수정필요!)
+                    clearInterval(IntTimeId);
+                }
+            },1000);
+        }
+        socket.on('nextTurn',function(name,std){
+            othercards.push(std);
+            if(name!="<%=session.user%>")
+            {
+                $('#yl_card').attr("src","/cards/"+std+".png");
+                youcards -= 1;
+            }
+            refreshCard();
+            turnchange();
+        });
+        function bellClick()
+        {
+            var c1 = $('#ml_card').attr("src");
+            var c2 = $('#yl_card').attr("src");
+            var ck = 0;
+            if(c1 == "/cards/emptycard.png" || c2 == "/cards/emptycard.png")
+            {
+                if(c1[8]=="5" || c2[8]=="5")
+                {
+                    ck = 1;
+                }
+            }
+            else
+            {
+                if(c1[7]==c2[7])
+                {
+                    if(parseInt(c1[8])+parseInt(c2[8])==5)
+                    {
+                        ck = 1;
+                    }
+                }
+                else
+                {
+                    if(c1[8]=="5" || c2[8]=="5")
+                    {
+                        ck = 1;
+                    }
+                }
+            }
+            socket.emit('myfirstbell',"<%=session.user%>",ck,"<%=id%>");
+        }
+        socket.on('cardLoseOrGet',function(name,check){
+            console.log(check);
+            console.log(name);
+            if(name=="<%=session.user%>")
+            {
+                if(check==1)
+                {
+                    for(var i=0;i<othercards.length;i++)
+                    {
+                        mycards.push(othercards[i]);
+                    }
+                    othercards = [];
+                    EmptyCardSet();
+                    refreshCard();
+                    socket.emit('mycardlength',mycards.length,"<%=id%>");
+                }
+                else
+                {
+                    var give = mycards[0];
+                    mycards.splice(0,1);
+                    youcards += 1;
+                    socket.emit('givemycard',give,"<%=id%>");
+                    refreshCard();
+                }
+            }
+            else
+            {
+                if(check==1)
+                {
+                    othercards = [];
+                    EmptyCardSet();
+                }
+            }
+            turnchange();
+        });
+        function EmptyCardSet()
+        {
+            $('#my_last_card').html(`<img id="ml_card" class="imagefull" src="/cards/emptycard.png">`);
+            $('#you_last_card').html(`<img id="yl_card" class="imagefull" src="/cards/emptycard.png">`);
+        }
+        socket.on('setCardlength',function(mcl){
+            youcards = mcl;
+            refreshCard();
+        });
+        socket.on('getgivecard',function(gc){
+            mycards.push(gc);
+            youcards -= 1;
+            refreshCard();
+        });
     </script>
     <% }else{ %>
     <a href="/"><h1>로그인이 필요합니다.(이동)</h1></a>

@@ -136,6 +136,57 @@ io.on('connection',function(socket){
     socket.on('CancelST',function(roomId){
         socket.broadcast.to(roomId).emit('CanceledST');
     });
+    socket.on('setProblem',function(roomId){
+        var x = Math.floor(Math.random() * 50) + 1;
+        var y = Math.floor(Math.random() * 50) + 1;
+        var re = x*y*43;
+        io.sockets.in(roomId).emit('getProblem',x,y,re);
+    });
+    socket.on('setAns',function(ans,re,name,roomId){
+        if((re/43)==ans)
+        {
+            io.sockets.in(roomId).emit('settingGame',name,1);
+        }
+        else
+        {
+            io.sockets.in(roomId).emit('settingGame',name,0);
+        }
+    });
+    socket.on('shuffleCards',function(roomId){
+        var cardlist = ["b1","b2","b3","b4","b5","g1","g2","g3","g4","g5","i1","i2","i3","i4","i5","o1","o2","o3","o4","o5","w1","w2","w3","w4","w5","d1","d2","d3","d4","d5"];
+        var u1 = [];
+        var u2 = [];
+        for(var i=0;i<30;i++)
+        {
+            var r = Math.floor(Math.random() * 30);
+            var tmp = cardlist[r];
+            cardlist[r] = cardlist[0];
+            cardlist[0] = tmp;
+        }
+        for(var i=0;i<15;i++)
+        {
+            u1.push(cardlist[0]);
+            cardlist.splice(0,1);
+        }
+        for(var i=0;i<15;i++)
+        {
+            u2.push(cardlist[0]);
+            cardlist.splice(0,1);
+        }
+        io.sockets.in(roomId).emit('compshuffle',u1,u2);
+    });
+    socket.on('cardClick',function(name,selected,roomId){
+        io.sockets.in(roomId).emit('nextTurn',name,selected);
+    });
+    socket.on('myfirstbell',function(name,ck,roomId){
+        io.sockets.in(roomId).emit('cardLoseOrGet',name,ck);
+    });
+    socket.on('mycardlength',function(mcl,roomId){
+        socket.broadcast.to(roomId).emit('setCardlength',mcl);
+    });
+    socket.on('givemycard',function(gc,roomId){
+        socket.broadcast.to(roomId).emit('getgivecard',gc);
+    });
 });
 ///////////////////////////////////////////////////////////////////////
 
