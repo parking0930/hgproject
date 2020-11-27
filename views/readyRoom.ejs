@@ -96,9 +96,13 @@
                 <input id="gmchaton" type="button" value="채팅창 열기" onclick="gmchaton();">
             </div>
             <div id="gmchat_layout">
-                <textarea id="gmchat_log" readonly></textarea>
+                <div id="gmchat_log">
+                  <div class="gmchat_profile">
+                    <img src="/profile.png" class="chat_img"><font class="chat_nick_text">닉네임</font>
+                  </div>
+                  <div class="gmchatmy">ㅇㅇㅇㅇㅇ</div>
+                </div>
                 <input id="gmchat_message" type="text" maxlength="100">
-                <input id="gmchat_sub" type="button" value="보내기"/>
             </div>
         </div>
     </div>
@@ -342,18 +346,20 @@
           if(nick=="시스템")
           {
             $('#chat_area').append('<div class="chat_nick"><img src="/settings.png" class="chat_img"><font class="chat_nick_text">'+nick+'</font></div><div class="chat_dl_sys"><font class="chat_text">'+message+'</font></div>');
-            $('#chat_area').scrollTop($('#chat_area')[0].scrollHeight);
+            $('#gmchat_log').append(`<div class="gmchat_profile"><img src="/profile.png" class="chat_img"><font class="chat_nick_text">`+nick+`</font></div><div class="gmchatsys">`+message+`</div>`);
           }
           else if(nick=="<%= session.user %>")
           {
             $('#chat_area').append('<div class="chat_nick"><img src="/profile.png" class="chat_img"><font class="chat_nick_text">'+nick+'</font></div><div class="chat_dl_me"><font class="chat_text">'+message+'</font></div>');
-            $('#chat_area').scrollTop($('#chat_area')[0].scrollHeight);
+            $('#gmchat_log').append(`<div class="gmchat_profile"><img src="/profile.png" class="chat_img"><font class="chat_nick_text">`+nick+`</font></div><div class="gmchatmy">`+message+`</div>`);
           }
           else
           {
             $('#chat_area').append('<div class="chat_nick"><img src="/profile.png" class="chat_img"><font class="chat_nick_text">'+nick+'</font></div><div class="chat_dl"><font class="chat_text">'+message+'</font></div>');
-            $('#chat_area').scrollTop($('#chat_area')[0].scrollHeight);
+            $('#gmchat_log').append(`<div class="gmchat_profile"><img src="/profile.png" class="chat_img"><font class="chat_nick_text">`+nick+`</font></div><div class="gmchatyou">`+message+`</div>`);
           }
+          $('#chat_area').scrollTop($('#chat_area')[0].scrollHeight);
+          $('#gmchat_log').scrollTop($('#gmchat_log')[0].scrollHeight);
         });
         socket.on('refreshUS',function(usersA,socA,printU,stateR){
             refreshUS(usersA,socA,printU,stateR);
@@ -838,6 +844,31 @@
             youcards -= 1;
             refreshCard();
         });
+        function win()
+        {
+            $.get('/winner/'+"<%=session.user%>", function() {
+            });
+            showRoom();
+        }
+        function lose()
+        {
+            $.get('/loser/'+"<%=session.user%>", function() {
+            });
+            showRoom();
+        }
+        function gmchaton()
+        {
+            if($('#gmchaton').val()=="채팅창 열기")
+            {
+                $('#gmchat_layout').slideDown(500);
+                $('#gmchaton').val('채팅창 닫기');
+            }
+            else
+            {
+                $('#gmchat_layout').slideUp(500);
+                $('#gmchaton').val('채팅창 열기');
+            }
+        }
     </script>
     <% }else{ %>
     <a href="/"><h1>로그인이 필요합니다.(이동)</h1></a>

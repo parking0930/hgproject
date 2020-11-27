@@ -214,15 +214,19 @@ body { font-family: gyunggi; }
 #gmchat_log
 {
     margin-top: 10px;
-    width:95%;
+    margin-left: 5%;
+    padding-top:10px;
+    width:90%;
     height: 70%;
     resize: none;
+    border: 1px solid silver;
     font-size: 1vw;
+    overflow-y:auto;
 }
 #gmchat_message
 {
-    width:70%;
-    padding-top:1%;
+    width:90%;
+    margin-top:5px;
     padding-bottom: 1%;
     font-size: 1vw;
 }
@@ -241,4 +245,51 @@ body { font-family: gyunggi; }
 {
     border-top: 2px solid white;
     border-bottom: 2px solid white;
+}
+.gmchatmy{
+  margin-left:5%;
+  margin-right:5%;
+  margin-bottom:5px;
+  padding-left: 5%;
+  padding-right: 5%;
+  text-align:left;
+  padding-top: 2%;
+  padding-bottom: 2%;
+  width:78%;
+  word-wrap: break-word;
+  border-radius: 9px;
+  background-image: linear-gradient(to top, #c4c5c7 0%, #dcdddf 52%, #ebebeb 100%);
+}
+.gmchatsys{
+  margin-left:5%;
+  margin-right:5%;
+  margin-bottom:5px;
+  padding-left: 5%;
+  padding-right: 5%;
+  text-align:left;
+  padding-top: 2%;
+  padding-bottom: 2%;
+  width:78%;
+  word-wrap: break-word;
+  border-radius: 9px;
+  background: linear-gradient( to bottom, #fad0c4, #ff9a9e );
+}
+.gmchatyou{
+  margin-left:5%;
+  margin-right:5%;
+  margin-bottom:5px;
+  padding-left: 5%;
+  padding-right: 5%;
+  text-align:left;
+  padding-top: 2%;
+  padding-bottom: 2%;
+  width:78%;
+  word-wrap: break-word;
+  border-radius: 9px;
+  background: linear-gradient( to bottom, #c2e9fb, #a1c4fd );
+}
+.gmchat_profile{
+  margin-left:6%;
+  margin-right:6%;
+  text-align:left;
 }

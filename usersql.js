@@ -233,3 +233,17 @@ exports.onlineminus = function(id,callback){
         if(err){callback(true);}
     });
 };
+
+exports.winpoint = function(name,callback){
+    var q = 'UPDATE users SET win=win+1,point=point+100 WHERE name="'+name+'"';
+    conn.query(q,function(err,result,field){
+        if(err){callback(true);}
+    });
+};
+
+exports.losepoint = function(name,callback){
+    var q = 'UPDATE users SET lose=lose+1,point=point+20 WHERE name="'+name+'"';
+    conn.query(q,function(err,result,field){
+        if(err){callback(true);}
+    });
+};
