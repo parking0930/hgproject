@@ -14,9 +14,9 @@
         var bannerLength = banner.children().length;
         var rollingId;
         var cnt = 1;
-        rollingId = setInterval(function() { rolling(); }, 3000);
+        rollingId = setInterval(function() { rollingStart(); }, 3000);
 
-        function rolling() {
+        function rollingStart() {
           cnt += 1;
           banner.css("width", bannerWidth * bannerLength + "px");
           banner.css("height", bannerHeight + "px");
@@ -75,9 +75,7 @@
                                 <li class="menu_content">랭킹</li>
                                 </a>
                                 <li>|</li>
-                                <a href="/store">
                                 <li class="menu_content">포인트샵</li>
-                                </a>
                                 <li>|</li>
                                 <li class="menu_content">이용방법</li>
                             </ul>
@@ -195,7 +193,6 @@
             </div>
 </body>
 <script>
-    $('#board_event_table').append(`<tr><td><text class="id_text">`+"·"+`</text></td><td><a href="/show/`+"board_free"+"/"+"1"+`" class="titlefont">`+"테스트 게시글"+`</a><img class="newsize" src="/new.png"></td></tr>`);
     function new_pop()
     {
         var popup = window.open("/join",'_blank','toolbar=no,location=no,status=no,menubar=no,scrollbars=auto,resizable=no,directories=no,width=340,height=370,top=200,left=800');

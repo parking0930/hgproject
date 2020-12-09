@@ -28,8 +28,8 @@ exports.userinfo = function(Name,callback){
 };
 
 exports.getfiveboard = function(board,callback){
-    var q = 'SELECT id,title FROM '+board+' ORDER BY id DESC LIMIT 6';
-    conn.query(q,function(err,result,field){
+    var q = 'SELECT id,title,time FROM '+board+' ORDER BY id DESC LIMIT 7';
+    conn.query(q,function(err,result){
         if(err){callback(true);}
         callback(null,result);
     });
@@ -93,14 +93,6 @@ exports.upBoard = function(board,id,callback){
     var q = 'UPDATE '+board+' SET ck=ck+1 WHERE id='+id;
     conn.query(q,function(err,result,field){
         if(err){callback(true);}
-    });
-};
-
-exports.getfiveboard = function(board,callback){
-    var q = 'SELECT id,title FROM '+board+' ORDER BY id DESC LIMIT 6';
-    conn.query(q,function(err,result,field){
-        if(err){callback(true);}
-        callback(null,result);
     });
 };
 
@@ -245,5 +237,21 @@ exports.losepoint = function(name,callback){
     var q = 'UPDATE users SET lose=lose+1,point=point+20 WHERE name="'+name+'"';
     conn.query(q,function(err,result,field){
         if(err){callback(true);}
+    });
+};
+
+exports.changeNick = function(nick, toName, callback){
+    var q = 'UPDATE users SET name="'+toName+'" WHERE name="'+nick+'"';
+    conn.query(q,function(err,result){
+        if(err){callback(true);}
+        callback(null);
+    });
+};
+
+exports.changePoint = function(nick, callback){
+    var q = 'UPDATE users SET point=point-100 WHERE name="'+nick+'"';
+    conn.query(q,function(err,result){
+        if(err){callback(true);}
+        callback(null);
     });
 };

@@ -3,8 +3,9 @@ legend,input,textarea,button,select{margin:0;padding:0}
 img,fieldset{border:0}
 ul,ol{list-style:none}
 em,address{font-style:normal}
-a{text-decoration:none}
-a:hover,a:active,a:focus{text-decoration:none}
+a:link { color: black; text-decoration: none;}
+a:visited { color: black; text-decoration: none;}
+
 @font-face { font-family: 'gyunggi'; src: url(gyunggi.ttf) format('truetype'); }
 @font-face {
   font-family: 'Nanum Gothic';
@@ -83,7 +84,6 @@ body { font-family: gyunggi; }
 #headimg
 {
     float: left;
-    margin-left: 350px;
     width: 300px;
     height: 67px;
 }
@@ -103,6 +103,7 @@ body { font-family: gyunggi; }
 }
 .menu_center
 {
+    margin-top: 3px;
     float: left;
     width:1000px;
 }
@@ -136,19 +137,62 @@ body { font-family: gyunggi; }
     width:650px;
     height:200px;
     margin-top:10px;
-    background:#edeef0
+    _background:#edeef0
+}
+#imgs
+{
+  position: absolute;
+  width: 650px;
+  height: 200px;
+  margin:0 auto;
+  padding:0;
+  overflow: hidden;
+}
+#imgs ul
+{
+  position: absolute;
+  margin: 0px;
+  padding:0;
+  list-style: none;
+}
+#imgs ul li
+{
+  float: left;
+  width: 650px;
+  height: 200px;
+  margin:0;
+  padding:0;
+}
+#circles
+{
+  position: absolute;
+  margin-top: 170px;
+  margin-left: 285px;
+  width:80px;
+  height: 25px;
+  _border: 1px solid black
+}
+.circles
+{
+  width:12px;
+  height: 12px;
+  margin-left: 9px;
+  margin-top: 6px;
+  border-radius: 50%;
+  border: 1px solid silver;
+  float:left;
 }
 .right
 {
     float:left;
-    width:330px;
+    width:338px;
     margin-left:10px;
     _border:1px solid red;
 }
 .right_content
 {
     float:left;
-    width:330px;
+    width:336px;
     height:200px;
     margin-top:10px;
     background:#f8f8f8;
@@ -156,12 +200,12 @@ body { font-family: gyunggi; }
 }
 #footer
 {
-  float:left;
-  width:1000px;
-  height:80px;
-  margin:10px 0 30px 0;
-  background:#E9E9E9;
-  border:0.5px solid silver;
+    float:left;
+    width:1000px;
+    height:80px;
+    margin:10px 0 30px 0;
+    background:#E9E9E9;
+    border:0.5px solid silver;
 }
 #contents
 {
@@ -169,31 +213,35 @@ body { font-family: gyunggi; }
     width:650px;
     height:420px;
     margin-top:10px;
-    _background:#edeef0
+    _background:#edeef0;
 }
 #login
 {
     float:left;
-    width:330px;
+    width:336px;
     height: 120px;
     border: 1px solid silver;
-}
-#login_table
-{
-    width: 250px;
-    margin: 5px auto;
+    background: white;
 }
 #gamestart
 {
     float: left;
-    width:330px;
+    width:336px;
     height: 75px;
     margin-top: 5px;
-    border: 0.5px solid black;
+    _border: 0.5px solid black;
 }
-.btn
+#gamestart:hover
 {
-    cursor:pointer;
+  border: 1px solid black;
+  border-radius: 5px;
+}
+#title_div
+{
+  width:320px;
+  height:28px;
+  border-bottom: 1px solid silver;
+  background-color: #f7f7f7;
 }
 #notice
 {
@@ -231,30 +279,141 @@ body { font-family: gyunggi; }
 {
     position: absolute;
     font-weight: bold;
-    font-size: 22px;
-    margin-left: 15px;
-    margin-top: 5px;
+    font-family:'Nanum Gothic';
+    color: black;
+    font-size: 14px;
+    margin-left: 10px;
+    margin-top: 6px;
+}
+.board_link
+{
+      position: absolute;
+      font-family:'Nanum Gothic';
+      color: black;
+      font-size: 11px;
+      margin-left: 263px;
+      margin-top: 8px;
 }
 .board_table
 {
     text-align: left;
     position: absolute;
-    margin-top:20px;
-    margin-left: 15px;
+    margin-top:3px;
+    margin-left: 9px;
     margin-right: 15px;
-    border-collapse: collapse;
+    font-family:'Nanum Gothic';
+    font-size: 13px;
+    border-collapse: separate;
+    border-spacing: 0 7px;
 }
-.board_table tr:hover
+.board_table tr
 {
-    background-color: #e1e1e1;
+  word-break:break-all;
+  word-wrap:break-word;
+}
+.board_table td:hover
+{
+    /*background-color: #e1e1e1;*/
 }
 .id_text
 {
-    margin-right: 10px;
-    font-size: 17px;
+  margin-right: 7px;
 }
-.titlefont
+.id_text:hover
 {
-    font-size: 17px;
-    color: black;
+
+}
+.titlefont:hover
+{
+    color: #8AD1FF;
+}
+#login_div
+{
+  width: 270px;
+  margin-top: 10px;
+  margin-left: 30px;
+}
+.newsize
+{
+    position: absolute;
+    margin-left: 5px;
+    margin-top: 0.5px;
+    width:14px;
+    height: 14px;
+}
+#user_info_div
+{
+    width: 290px;
+    height: 100px;
+    margin-top: 10px;
+    margin-left: 20px;
+    _border:1px solid black;
+}
+#user_info_image
+{
+  position: absolute;
+  margin-top: 5px;
+}
+#user_info_inner
+{
+  position: absolute;
+  margin-left: 100px;
+  margin-top: 12px;
+  font-family:'Nanum Gothic';
+  font-size: 13px;
+}
+.logout_btn
+{
+  margin-top:4px;
+  width:100px;
+  height:27px;
+  border-radius:15px;
+  border: 0px;
+  background:black;
+  color:white;
+  font-weight:bold;
+}
+.logout_btn:hover
+{
+  background: silver;
+  cursor:pointer;
+}
+.game_btn
+{
+  font-family: 'gyunggi';
+  width:336px;
+  height:75px;
+  font-size: 45px;
+  border-radius:5px;
+  border: 5px solid black;
+  background: white;
+}
+.game_btn:hover
+{
+  background: black;
+  color: white;
+  border: 5px solid #f7f7f7;
+  cursor:pointer;
+}
+#log_in
+{
+  width:270px;
+  height:27px;
+  margin-bottom:5px;
+  font-family:'Nanum Gothic';
+  font-weight:bold;
+  background:black;
+  color:white;
+  font-weight:bold;
+  border: 0px;
+  border-radius:10px;
+}
+#log_in:hover
+{
+  background: silver;
+  cursor:pointer;
+}
+#c1
+{
+  background: black;
 }

@@ -678,3 +678,53 @@ app.get('/printuser/:id',function(req,res){
         res.send(result[0]);
     });
 });
+
+app.get('/winner/:nick',function(req,res){
+    var nick = req.params.nick;
+    usersql.winpoint(nick,function(err,result){
+        if(err)throw err;
+    });
+});
+
+app.get('/loser/:nick',function(req,res){
+    var nick = req.params.nick;
+    usersql.losepoint(nick,function(err,result){
+        if(err)throw err;
+    });
+});
+
+app.get('/store',function(req,res){
+  res.render('store',{session:req.session});
+
+});
+
+app.get('/pointcheck',function(req,res){
+  usersql.userinfo(req.session.user,function(err,result){
+      if(err)throw err;
+      if(parseInt(result[0]["point"])>=100){
+        res.send(true);
+      }else{
+        res.send(false);
+      }
+  });
+});
+
+app.get('/changenick/:id',function(req,res){
+    var id = req.params.id;
+    usersql.userinfo(req.session.user,function(err,result){
+      if(err)throw err;
+        var point = parseInt(result[0]["point"]);
+        if(point>=100){
+            usersql.changePoint(req.session.user,function(err,result){
+              if(err)throw err;
+              usersql.changeNick(req.session.user, id, function(err,result){
+                if(err)throw err;
+
+              });
+            });
+        }else{
+          console.log("변경 실패");
+        }
+    });
+    res.redirect('/logout');
+});

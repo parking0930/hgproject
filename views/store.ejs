@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="store.css">
+    <title>HG Project - Store</title>
+  </head>
+  <body>
+<%if(session.user){%>
+    <div id="black_background">
+    </div>
+    <div id="white_background">
+      <div style="text-align:right;margin-top:10px;width: 400px;">
+        <font onclick="exitPop();" style="margin-right:10px;font-size:20px;cursor:pointer;">X</font>
+      </div>
+      <h2>닉네임 변경</h2>
+      <div class="textboxes_titile_div">
+        <font style="margin-left:95px;">기존 닉네임</font>
+      </div>
+      <div class="textboxes_div">
+        <input type="text" class="textboxes" value="<%=session.user%>" disabled>
+      </div>
+      <div class="textboxes_titile_div">
+        <font style="margin-left:95px;">변경할 닉네임</font>
+        <button type="button" id="btn_check" onclick="checkNick();">중복확인</button>
+      </div>
+      <div class="textboxes_div">
+        <input type="text" class="textboxes" id="changenick">
+      </div>
+      <div class="textboxes_div">
+        <button type="button" id="submit_btn" onclick="submitChange();">적용하기</button>
+      </div>
+    </div>
+    <div id="wrap">
+        <div id="container">
+            <div id="header">
+                <a href="/">
+                    <img id="headimg" src="/logo.png">
+                </a>
+            </div>
+            <div class="menu">
+                <div class="menu_center">
+                    <ul>
+                        <a href="/">
+                            <li class="menu_content">메인</li>
+                        </a>
+                        <li>|</li>
+                        <a href="/board_notice">
+                        <li class="menu_content">공지사항</li>
+                        </a>
+                        <li>|</li>
+                        <a href="/board_free">
+                        <li class="menu_content">유저게시판</li>
+                        </a>
+                        <li>|</li>
+                        <a href="/ranking">
+                        <li class="menu_content">랭킹</li>
+                        </a>
+                        <li>|</li>
+                        <a href="/store">
+                        <li class="menu_content">포인트샵</li>
+                        </a>
+                        <li>|</li>
+                        <li class="menu_content">이용방법</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="center">
+              <div id="center_content">
+                <h2 style="margin-top:5px;">포인트샵</h2>
+                <div class="shop_box">
+                  <div class="shop_image_box">
+                    <img src="profile.png" style="width:50px;height: 50px;border-radius:50%">
+                  </div>
+                  <div class="shop_font_box">
+                    <h2 style="margin-left:5px;font-family: 'Nanum Gothic';">닉네임 변경권</h2>
+                    <h4 style="margin-left:5px;font-family: 'Nanum Gothic';">포인트를 사용하여 닉네임을 변경합니다.</h4>
+                  </div>
+                  <div class="shop_btn_box">
+                    <button type="button" class="btns" onclick="purchase();">사용하기</button>
+                  </div>
+                </div>
+                <div class="shop_box">
+                  <div class="shop_image_box">
+                    <img src="profile.png" style="width:50px;height: 50px;border-radius:50%">
+                  </div>
+                  <div class="shop_font_box">
+                    <h2 style="margin-left:5px;font-family: 'Nanum Gothic';">준비중..</h2>
+                    <h4 style="margin-left:5px;font-family: 'Nanum Gothic';">준비중인 상품입니다.</h4>
+                  </div>
+                  <div class="shop_btn_box">
+                    <button type="button" class="btns">사용하기</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div id="footer">
+                <p style="font-size:13px;margin-top:9px;font-weight:bold;">HalliGalli in Website Project</p>
+                <p style="font-size:12px;margin-top:2px;">ⓒ2020.박재현 All Rights Reserved.</p>
+                <p style="font-size:12px;margin-top:2px;">Tel : 010-0000-0000, Mail : parking0930@naver.com</p>
+                <p style="font-size:12px;margin-top:2px;">GitHub : <a href="https://github.com/parking0930">https://github.com/parking0930</a></p>
+            </div>
+        </div>
+    </div>
+<%}else{%>
+  <script type="text/javascript">
+    location.replace("/");
+  </script>
+<%}%>
+  </body>
+<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script type="text/javascript">
+  function checkNick(){
+    var nickname = document.getElementById("changenick").value;
+    if(nickname==""){
+      alert("닉네임을 입력해주세요.");
+      return;
+    }
+    $.get('/checkNick/'+$('#changenick').val(), function(data) {
+      if($('#changenick').val()==data)
+      {
+        alert("닉네임이 이미 존재합니다.");
+      }
+      else{
+        alert("사용 가능합니다.");
+      }
+    });
+  }
+  function submitChange(){
+    var nickname = document.getElementById("changenick").value;
+    if(nickname==""){
+      alert("닉네임을 입력해주세요.");
+      return;
+    }
+    $.get('/pointcheck', function(data) {
+      if(data==true)
+      {
+        goChange();
+      }
+      else{
+        alert("포인트가 부족합니다.");
+        return;
+      }
+    });
+  }
+  function goChange(){
+    $.get('/checkNick/'+$('#changenick').val(), function(data) {
+      if($('#changenick').val()==data)
+      {
+        alert("닉네임이 이미 존재합니다.");
+        return;
+      }
+      else{
+        alert("변경 완료!\n재로그인 부탁드립니다.");
+        location.href = "/changenick/"+$('#changenick').val();
+      }
+    });
+  }
+  function purchase(){
+      $("#black_background").fadeIn(500);
+      $("#white_background").fadeIn(500);
+  }
+  function exitPop(){
+      $("#black_background").fadeOut(500);
+      $("#white_background").fadeOut(500);
+  }
+</script>
+</html>
